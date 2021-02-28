@@ -106,8 +106,8 @@ def girl():
         time.sleep(2)
         pict = path_to_pict[pict_random].get_attribute('data-src')
 
-        bot.send_photo(227722043, photo=pict)
-        bot.send_message(227722043, willing_phrase)
+        bot.send_photo(-590852422, photo=pict)
+        bot.send_message(-590852422, willing_phrase)
 
     except:
         girl()
