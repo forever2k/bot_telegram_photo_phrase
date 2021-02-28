@@ -61,9 +61,10 @@ def send_girl(message):
 
     start_girl()
     bot.send_message(message.from_user.id, "Start Bot is activated")
+
+    bot.send_message(-590852422, 'message to Test Group 2')
     girl()
     bot.send_message(message.from_user.id, "First girl completed")
-    bot.send_message(-590852422, 'message to Test Group 2')
 
     schedule.every(2).minutes.do(girl)
 
