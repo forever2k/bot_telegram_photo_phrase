@@ -65,24 +65,24 @@ def start_girl():
     launch = True
 
 
-# @bot.message_handler(commands=['send'])
-# def send_girl(message):
-#
-#     bot.send_message(message.from_user.id, "Send Bot works")
-#
-#     start_girl()
-#     bot.send_message(message.from_user.id, "Start Bot is activated")
-#     girl()
-#     bot.send_message(message.from_user.id, "First girl completed")
-#
-#
-#     schedule.every(2).minutes.do(girl)
-#
-#     while launch:
-#         schedule.run_pending()
-#         time.sleep(1)
-#
-#
+@bot.message_handler(commands=['send'])
+def send_girl(message):
+
+    bot.send_message(message.from_user.id, "Send Bot works")
+
+    start_girl()
+    bot.send_message(message.from_user.id, "Start Bot is activated")
+    girl()
+    bot.send_message(message.from_user.id, "First girl completed")
+
+
+    schedule.every(2).minutes.do(girl)
+
+    while launch:
+        schedule.run_pending()
+        time.sleep(1)
+
+
 # def girl():
 #
 #     page = random.randrange(1, 10)
