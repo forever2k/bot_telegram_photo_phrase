@@ -35,7 +35,6 @@ def send_welcome(message):
     bot.send_message(message.from_user.id, message.from_user.id)
 
 
-
 @bot.message_handler(commands=['stop'])
 def stop_send_girl(message):
 
