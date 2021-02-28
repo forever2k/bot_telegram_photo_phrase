@@ -63,7 +63,7 @@ def send_girl(message):
     bot.send_message(message.from_user.id, "Start Bot is activated")
     girl()
     bot.send_message(message.from_user.id, "First girl completed")
-
+    bot.send_message(-590852422, 'message to Test Group 2')
 
     schedule.every(2).minutes.do(girl)
 
@@ -79,6 +79,8 @@ def girl():
         URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
         driver.get(URL2)
         wait1 = WebDriverWait(driver, 10)
+
+        bot.send_message(-590852422, driver.current_url)
 
         guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
         greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
