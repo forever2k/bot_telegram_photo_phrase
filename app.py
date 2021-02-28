@@ -62,36 +62,63 @@ def send_girl(message):
 
     start_girl()
     bot.send_message(message.from_user.id, "Start Bot is activated")
-    girl()
+    both_girl_phrase()
     bot.send_message(message.from_user.id, "First girl completed")
 
 
-    schedule.every(2).minutes.do(girl)
+    schedule.every(2).minutes.do(both_girl_phrase)
 
     while launch:
         schedule.run_pending()
         time.sleep(1)
 
-#
-# def both_girl_phrase():
-#
-#
-# def girl():
-#
-#     page = random.randrange(1, 10)
-#     URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
-#     driver.get(URL2)
-#     wait1 = WebDriverWait(driver, 10)
-#
-#     path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-#     all_pict = len(path_to_pict)
-#     pict_random = random.randrange(0, all_pict)
-#     time.sleep(2)
-#     pict = path_to_pict[pict_random].get_attribute('data-src')
-#
-#     return pict
-#
-#
+
+def both_girl_phrase():
+
+    try:
+        girl()
+    except:
+        girl()
+
+
+
+def girl():
+
+    page = random.randrange(1, 10)
+    URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+    driver.get(URL2)
+    wait1 = WebDriverWait(driver, 10)
+
+    guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
+    greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
+                'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
+    phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'смотрите на мои вишенки',
+               'как вам мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
+               'ох, не смотри на меня так', 'мои булочки готовы для вас', 'рада тут побывать',
+               'всегда готова, жду вас тут', 'порадуйте меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
+               'сейчас позову подружек не хуже меня', 'сегодня здесь будет жарко', 'я вся горю',
+               'классный денек сегодня, да?', 'погодка не фонтан, согрейте меня', 'всем хорошего дня!',
+               'всем классного дня!', 'заходите поглядеть на меня еще', 'хватит палитьтся на мои титьки', 'как я вам?', 'оцените меня экспертно', 'не сломайте об меня глаза', 'сиськи заказывали?', 'как вам мои шары?']
+    emoji = ['$)', ':)', ';)', 'oO', ':**', ' ', '..', 'уух', 'мм;)']
+
+    guys_random = random.randrange(0, len(guys))
+    greeting_random = random.randrange(0, len(greeting))
+    phrases_random = random.randrange(0, len(phrases))
+    emoji_random = random.randrange(0, len(emoji))
+
+    willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
+
+    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+    all_pict = len(path_to_pict)
+    pict_random = random.randrange(0, all_pict)
+    time.sleep(2)
+    pict = path_to_pict[pict_random].get_attribute('data-src')
+
+    bot.send_photo(227722043, photo=pict)
+    bot.send_message(227722043, willing_phrase)
+
+
+
 # def phrase():
 #
 #     guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
@@ -116,64 +143,54 @@ def send_girl(message):
 #     return willing_phrase
 
 
-
-def girl():
-
-    page = random.randrange(1, 10)
-    URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
-    guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
-    greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
-                'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
-    phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'смотрите на мои вишенки',
-               'как вам мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
-               'ох, не смотри на меня так', 'мои булочки готовы для вас', 'рада тут побывать',
-               'всегда готова, жду вас тут', 'порадуйте меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
-               'сейчас позову подружек не хуже меня', 'сегодня здесь будет жарко', 'я вся горю',
-               'классный денек сегодня, да?', 'погодка не фонтан, согрейте меня', 'всем хорошего дня!',
-               'всем классного дня!', 'заходите поглядеть на меня еще', 'хватит палитьтся на мои титьки', 'как я вам?', 'оцените меня экспертно', 'не сломайте об меня глаза', 'сиськи заказывали?', 'как вам мои шары?']
-    emoji = ['$)', ':)', ';)', 'oO', ':**', ' ', '..', 'уух', 'мм;)']
-
-    guys_random = random.randrange(0, len(guys))
-    greeting_random = random.randrange(0, len(greeting))
-    phrases_random = random.randrange(0, len(phrases))
-    emoji_random = random.randrange(0, len(emoji))
-
-    willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
-
-    driver.get(URL2)
-    wait1 = WebDriverWait(driver, 10)
-
-    try:
-        path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-    except Exception as error:
-        bot.send_message(227722043, 'Item 1 not found')
-        bot.send_message(227722043, error)
-
-    try:
-        all_pict = len(path_to_pict)
-        pict_random = random.randrange(0, all_pict)
-        time.sleep(2)
-        choice_pict = driver.find_elements_by_class_name('pcsrt-th-lightgallery-item')[pict_random]
-        pict = choice_pict.get_attribute('data-src')
-    except Exception as error:
-        bot.send_message(227722043, 'Item 2 not found')
-        bot.send_message(227722043, error)
-
-    # try:
-    #     all_pict = len(path_to_pict)
-    #     pict_random = random.randrange(0, all_pict)
-    #     time.sleep(2)
-    #     pict = path_to_pict[pict_random].get_attribute('data-src')
-    # except Exception as error:
-    #     bot.send_message(227722043, 'Item 2 not found')
-    #     bot.send_message(227722043, error)
-
-    try:
-        bot.send_photo(227722043, photo=pict)
-        bot.send_message(227722043, willing_phrase)
-    except Exception as error:
-        bot.send_message(227722043, 'Final error')
-        bot.send_message(227722043, error)
+#
+# def girl():
+#
+#     page = random.randrange(1, 10)
+#     URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+#     guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
+#     greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
+#                 'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
+#     phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'смотрите на мои вишенки',
+#                'как вам мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
+#                'ох, не смотри на меня так', 'мои булочки готовы для вас', 'рада тут побывать',
+#                'всегда готова, жду вас тут', 'порадуйте меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
+#                'сейчас позову подружек не хуже меня', 'сегодня здесь будет жарко', 'я вся горю',
+#                'классный денек сегодня, да?', 'погодка не фонтан, согрейте меня', 'всем хорошего дня!',
+#                'всем классного дня!', 'заходите поглядеть на меня еще', 'хватит палитьтся на мои титьки', 'как я вам?', 'оцените меня экспертно', 'не сломайте об меня глаза', 'сиськи заказывали?', 'как вам мои шары?']
+#     emoji = ['$)', ':)', ';)', 'oO', ':**', ' ', '..', 'уух', 'мм;)']
+#
+#     guys_random = random.randrange(0, len(guys))
+#     greeting_random = random.randrange(0, len(greeting))
+#     phrases_random = random.randrange(0, len(phrases))
+#     emoji_random = random.randrange(0, len(emoji))
+#
+#     willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
+#
+#     driver.get(URL2)
+#     wait1 = WebDriverWait(driver, 10)
+#
+#     try:
+#         path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+#     except Exception as error:
+#         bot.send_message(227722043, 'Item 1 not found')
+#         bot.send_message(227722043, error)
+#
+#     try:
+#         all_pict = len(path_to_pict)
+#         pict_random = random.randrange(0, all_pict)
+#         time.sleep(2)
+#         pict = path_to_pict[pict_random].get_attribute('data-src')
+#     except Exception as error:
+#         bot.send_message(227722043, 'Item 2 not found')
+#         bot.send_message(227722043, error)
+#
+#     try:
+#         bot.send_photo(227722043, photo=pict)
+#         bot.send_message(227722043, willing_phrase)
+#     except Exception as error:
+#         bot.send_message(227722043, 'Final error')
+#         bot.send_message(227722043, error)
 
 
 @bot.message_handler(content_types=['text'])
