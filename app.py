@@ -45,26 +45,26 @@ def send_welcome(message):
     bot.send_message(message.from_user.id, message.from_user.id)
 
 
-#
-# @bot.message_handler(commands=['stop'])
-# def stop_send_girl(message):
-#
-#     stop_girl()
-#     bot.send_message(message.from_user.id, "Send girl Bot finished work")
-#
-#
-# def stop_girl():
-#
-#     global launch
-#     launch = False
-#
-#
-# def start_girl():
-#
-#     global launch
-#     launch = True
-#
-#
+
+@bot.message_handler(commands=['stop'])
+def stop_send_girl(message):
+
+    stop_girl()
+    bot.send_message(message.from_user.id, "Send girl Bot finished work")
+
+
+def stop_girl():
+
+    global launch
+    launch = False
+
+
+def start_girl():
+
+    global launch
+    launch = True
+
+
 # @bot.message_handler(commands=['send'])
 # def send_girl(message):
 #
