@@ -1,4 +1,4 @@
 
-TOKEN = '1659408638:AAFgWEQgM872D97vslsQcufayZVXz9D0TMI'
+TOKEN = '1617777203:AAF1P8NGG6lI0yDFtd0vn3MjkjREHUEZTuA'
 APP_NAME = 'https://telegram-bot-photo-phrase.herokuapp.com/'
 

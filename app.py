@@ -113,13 +113,13 @@ def girl():
         girl()
 
 
-@bot.message_handler(content_types=['text'])
-def get_id(message):
-
-    if message.text.lower() == 'getid':
-        bot.send_message(227722043, message)
-        bot.send_message(227722043, message.message_id)
-        bot.send_message(227722043, message.chat.id)
+# @bot.message_handler(content_types=['text'])
+# def get_id(message):
+#
+#     if message.text.lower() == 'getid':
+#         bot.send_message(227722043, message)
+#         bot.send_message(227722043, message.message_id)
+#         bot.send_message(227722043, message.chat.id)
 
 
 @server.route('/' + TOKEN, methods=['POST'])
