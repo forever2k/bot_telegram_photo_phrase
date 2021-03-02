@@ -12,6 +12,7 @@ import time
 import random
 import requests
 
+#@siskiexpert
 bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
@@ -62,10 +63,11 @@ def send_girl(message):
     start_girl()
     bot.send_message(message.from_user.id, "Start Bot is activated")
 
-    girl()
-    bot.send_message(message.from_user.id, "First girl completed")
+    # girl()
+    # bot.send_message(message.from_user.id, "First girl completed")
 
-    schedule.every(2).minutes.do(girl)
+    # schedule.every(2).minutes.do(girl)
+    schedule.every(12).hour.do(girl)
 
     while launch:
         schedule.run_pending()
@@ -105,8 +107,10 @@ def girl():
         time.sleep(2)
         pict = path_to_pict[pict_random].get_attribute('data-src')
 
-        bot.send_photo(-590852422, photo=pict)
-        bot.send_message(-590852422, willing_phrase)
+        # bot.send_photo(-590852422, photo=pict)
+        # bot.send_message(-590852422, willing_phrase)
+        bot.send_photo(-1001464385948, photo=pict)
+        bot.send_message(-1001464385948, willing_phrase)
 
     except:
         girl()
