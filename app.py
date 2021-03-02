@@ -66,8 +66,8 @@ def send_girl(message):
     # girl()
     # bot.send_message(message.from_user.id, "First girl completed")
 
-    schedule.every(2).minutes.do(girl)
-    # schedule.every(12).hour.do(girl)
+    # schedule.every(2).minutes.do(girl)
+    schedule.every(6).hour.do(girl)
 
     while launch:
         schedule.run_pending()
