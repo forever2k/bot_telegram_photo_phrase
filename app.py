@@ -201,8 +201,8 @@ def girl_once(message):
 
     bot.send_message(message.chat.id, 'here')
     bot.send_message(message.chat.id, message.chat.id)
-    bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
-    bot.send_message(message.from_user.id, message.from_user.id)
+    # bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
+    # bot.send_message(message.from_user.id, message.from_user.id)
 
     try:
         send_photo(message.chat.id)
