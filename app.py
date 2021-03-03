@@ -29,13 +29,16 @@ chrome_options.add_argument('--disable-dev-sh-usage')
 driver = webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), chrome_options=chrome_options)
 driver.implicitly_wait(4)
 
+group2 = -590852422
+group3 = -506817497
+# group_experts =
 
 launch = True
 
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
+    # bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
     bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
     # bot.send_message(message.from_user.id, message.from_user.id)
 
@@ -57,8 +60,8 @@ def send_girl(message):
     # girl()
     # bot.send_message(message.from_user.id, "First girl completed")
 
-    schedule.every(1).minutes.do(girl_double)
-    schedule.every(3).minutes.do(girl)
+    schedule.every(1).minutes.do(girl)
+    schedule.every(3).minutes.do(girl_double)
     # schedule.every(6).hours.do(girl)
 
     while launch:
@@ -152,47 +155,55 @@ def girl_parse():
 
     return pict, willing_phrase
 
+
+def send_photo(id_group):
+    bot.send_photo(id_group, photo=girl_parse()[0])
+
+def send_message(id_group):
+    bot.send_message(id_group, girl_parse()[1])
+
+
 def girl():
 
     try:
-        bot.send_photo(-506817497, photo=girl_parse()[0])
-        bot.send_message(-506817497, girl_parse()[1])
-
-        bot.send_photo(-590852422, photo=girl_parse()[0])
-        bot.send_message(-590852422, girl_parse()[1])
-        bot.send_message(-590852422, 'This func is Girl()')
+        send_photo(group2)
+        send_message(group2)
+        bot.send_message(group2, 'This func is Girl()')
 
     except:
-        bot.send_photo(-506817497, photo=girl_parse()[0])
-        bot.send_message(-506817497, girl_parse()[1])
-
-        bot.send_photo(-590852422, photo=girl_parse()[0])
-        bot.send_message(-590852422, girl_parse()[1])
-        bot.send_message(-590852422, 'This func is Girl()')
+        send_photo(group2)
+        send_message(group2)
+        bot.send_message(group2, 'This func is Girl()')
 
 
 def girl_double():
 
     try:
-        bot.send_photo(-590852422, photo=girl_parse()[0])
-        bot.send_message(-590852422, girl_parse()[1])
-        bot.send_message(-590852422, 'This func is Girl_double')
+        send_photo(group2)
+        send_message(group2)
+        bot.send_message(group2, 'This func is Girl_double')
+
+        send_photo(group3)
+        send_message(group3)
 
     except:
-        bot.send_photo(-590852422, photo=girl_parse()[0])
-        bot.send_message(-590852422, girl_parse()[1])
-        bot.send_message(-590852422, 'This func is Girl_double')
+        send_photo(group2)
+        send_message(group2)
+        bot.send_message(group2, 'This func is Girl_double')
+
+        send_photo(group3)
+        send_message(group3)
 
 
 def girl_once(message):
 
     try:
-        bot.send_photo(message.chat.id, photo=girl_parse()[0])
-        bot.send_message(message.chat.id, girl_parse()[1])
+        send_photo(message.chat.id)
+        send_message(message.chat.id)
 
     except:
-        bot.send_photo(message.chat.id, photo=girl_parse()[0])
-        bot.send_message(message.chat.id, girl_parse()[1])
+        send_photo(message.chat.id)
+        send_message(message.chat.id)
 
 
 
