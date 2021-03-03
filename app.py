@@ -103,10 +103,10 @@ def x_keyboard():
 def callback_worker(call):
 
     if call.data == "Want":
-        send_girl_once(call.message)
+        girl_once(call.message)
 
     elif call.data == "Very want":
-        send_girl_once(call.message)
+        girl_once(call.message)
 
     elif call.data == "Cancel":
         msg = 'Пока пока'
@@ -128,17 +128,6 @@ def girl_parse():
     driver.get(URL2)
     wait1 = WebDriverWait(driver, 10)
 
-    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-    all_pict = len(path_to_pict)
-    pict_random = random.randrange(0, all_pict)
-    time.sleep(2)
-    pict = path_to_pict[pict_random].get_attribute('data-src')
-
-    return pict
-
-
-def phrase():
-
     guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
     greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
                 'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
@@ -158,14 +147,22 @@ def phrase():
 
     willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
 
-    return willing_phrase
+    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+    all_pict = len(path_to_pict)
+    pict_random = random.randrange(0, all_pict)
+    time.sleep(2)
+    pict = path_to_pict[pict_random].get_attribute('data-src')
+
+    return pict, willing_phrase
+
+
 
 
 def send_photo(id_group):
-    bot.send_photo(id_group, photo=girl_parse())
+    bot.send_photo(id_group, photo=girl_parse()[0])
 
 def send_message(id_group):
-    bot.send_message(id_group, phrase())
+    bot.send_message(id_group, girl_parse()[1])
 
 
 def girl():
@@ -201,6 +198,8 @@ def girl_double():
 
 
 def girl_once(message):
+
+    bot.send_message(message.chat.id, 'here')
 
     try:
         send_photo(message.chat.id)
