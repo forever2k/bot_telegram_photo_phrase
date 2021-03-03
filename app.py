@@ -40,11 +40,56 @@ def send_welcome(message):
     # bot.send_message(message.from_user.id, message.from_user.id)
 
 
+@bot.message_handler(commands=['mytest'])
+def mytest(message):
+
+    bot.send_message(message.from_user.id, "mytest")
+
+
+@bot.message_handler(commands=['send'])
+def send_girl(message):
+
+    bot.send_message(message.from_user.id, "Send Bot works")
+
+    start_girl()
+    bot.send_message(message.from_user.id, "Start Bot is activated")
+
+    # girl()
+    # bot.send_message(message.from_user.id, "First girl completed")
+
+    schedule.every(1).minutes.do(girl_double)
+    schedule.every(3).minutes.do(girl)
+    # schedule.every(6).hours.do(girl)
+
+    while launch:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+@bot.message_handler(commands=['stop'])
+def stop_send_girl(message):
+
+    stop_girl()
+    bot.send_message(message.from_user.id, "Send girl Bot finished work")
+
+
+def stop_girl():
+
+    global launch
+    launch = False
+
+
+def start_girl():
+
+    global launch
+    launch = True
+
+
 def x_keyboard():
     keyboard = types.InlineKeyboardMarkup()
     btn1 = types.InlineKeyboardButton(text='Хочу', callback_data='Want')
     keyboard.add(btn1)
-    btn2 = types.InlineKeyboardButton(text='Посмотреть мои вопросы', callback_data='Very want')
+    btn2 = types.InlineKeyboardButton(text='Оочень хочу', callback_data='Very want')
     keyboard.add(btn2)
     btn3 = types.InlineKeyboardButton(text='Не надо, сегодня не стоит', callback_data='Cancel')
     keyboard.add(btn3)
@@ -68,46 +113,9 @@ def callback_worker(call):
 @bot.message_handler(func=lambda message: True)
 def send_girl_once(message):
 
+    bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
     girl_once(message)
 
-
-@bot.message_handler(commands=['stop'])
-def stop_send_girl(message):
-
-    stop_girl()
-    bot.send_message(message.from_user.id, "Send girl Bot finished work")
-
-
-def stop_girl():
-
-    global launch
-    launch = False
-
-
-def start_girl():
-
-    global launch
-    launch = True
-
-
-@bot.message_handler(commands=['send'])
-def send_girl(message):
-
-    bot.send_message(message.from_user.id, "Send Bot works")
-
-    start_girl()
-    bot.send_message(message.from_user.id, "Start Bot is activated")
-
-    # girl()
-    # bot.send_message(message.from_user.id, "First girl completed")
-
-    schedule.every(1).minutes.do(girl_double)
-    schedule.every(3).minutes.do(girl)
-    # schedule.every(6).hours.do(girl)
-
-    while launch:
-        schedule.run_pending()
-        time.sleep(1)
 
 
 def girl_parse():
