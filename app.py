@@ -165,7 +165,7 @@ def send_photo(id_group):
     bot.send_photo(id_group, photo=girl_parse())
 
 def send_message(id_group):
-    bot.send_message(id_group, phrase)
+    bot.send_message(id_group, phrase())
 
 
 def girl():
