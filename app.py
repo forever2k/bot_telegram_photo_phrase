@@ -13,6 +13,8 @@ import random
 import requests
 
 #@siskiexpert
+# -590852422 test group 2
+# -506817497 test group 3
 bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
@@ -33,7 +35,7 @@ launch = True
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
-    bot.send_message(message.from_user.id, message.from_user.id)
+    # bot.send_message(message.from_user.id, message.from_user.id)
 
 
 @bot.message_handler(commands=['stop'])
@@ -108,10 +110,15 @@ def girl():
         time.sleep(2)
         pict = path_to_pict[pict_random].get_attribute('data-src')
 
-        bot.send_photo(-1001464385948, photo=pict)
-        bot.send_message(-1001464385948, willing_phrase)
+        # bot.send_photo(-1001464385948, photo=pict)
+        # bot.send_message(-1001464385948, willing_phrase)
+
+        bot.send_photo(-506817497, photo=pict)
+        bot.send_message(-506817497, willing_phrase)
+
         bot.send_photo(-590852422, photo=pict)
         bot.send_message(-590852422, willing_phrase)
+        bot.send_message(-590852422, 'This func is Girl()')
 
     except:
         girl()
@@ -152,7 +159,7 @@ def girl_double():
         pict = path_to_pict[pict_random].get_attribute('data-src')
 
         bot.send_photo(-590852422, photo=pict)
-        bot.send_message(-590852422, willing_phrase)
+        bot.send_message(-590852422, 'This func is Girl_double')
 
     except:
         girl()
