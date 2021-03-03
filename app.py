@@ -1,6 +1,7 @@
 import os
 from selenium import webdriver
 import telebot
+from telebot import types
 from flask import Flask, request
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -35,7 +36,39 @@ launch = True
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
+    bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
     # bot.send_message(message.from_user.id, message.from_user.id)
+
+
+def x_keyboard():
+    keyboard = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton(text='Хочу', callback_data='Want')
+    keyboard.add(btn1)
+    btn2 = types.InlineKeyboardButton(text='Посмотреть мои вопросы', callback_data='Very want')
+    keyboard.add(btn2)
+    btn3 = types.InlineKeyboardButton(text='Не надо, сегодня не стоит', callback_data='Cancel')
+    keyboard.add(btn3)
+    return keyboard
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_worker(call):
+
+    if call.data == "Want":
+        girl_once(call.message)
+
+    elif call.data == "Very want":
+        girl_once(call.message)
+
+    elif call.data == "Cancel":
+        msg = 'Пока пока'
+        bot.send_message(call.message.chat.id, msg)
+
+
+@bot.message_handler(func=lambda message: True)
+def send_girl_once(message):
+
+    girl_once(message)
 
 
 @bot.message_handler(commands=['stop'])
@@ -68,101 +101,92 @@ def send_girl(message):
     # girl()
     # bot.send_message(message.from_user.id, "First girl completed")
 
-    schedule.every(3).minutes.do(girl_double)
-    schedule.every(240).minutes.do(girl)
-    # schedule.every(6).hour.do(girl)
+    schedule.every(1).minutes.do(girl_double)
+    schedule.every(3).minutes.do(girl)
+    # schedule.every(6).hours.do(girl)
 
     while launch:
         schedule.run_pending()
         time.sleep(1)
 
 
+def girl_parse():
+
+    page = random.randrange(1, 10)
+    URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+    driver.get(URL2)
+    wait1 = WebDriverWait(driver, 10)
+
+    guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
+    greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
+                'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
+    phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'смотрите на мои вишенки',
+               'как вам мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
+               'ох, не смотри на меня так', 'мои булочки готовы для вас', 'рада тут побывать',
+               'всегда готова, жду вас тут', 'порадуйте меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
+               'сейчас позову подружек не хуже меня', 'сегодня здесь будет жарко', 'я вся горю',
+               'классный денек сегодня, да?', 'погодка не фонтан, согрейте меня', 'всем хорошего дня!',
+               'всем классного дня!', 'заходите поглядеть на меня еще', 'хватит палитьтся на мои титьки', 'как я вам?', 'оцените меня экспертно', 'не сломайте об меня глаза', 'сиськи заказывали?', 'как вам мои шары?']
+    emoji = ['$)', ':)', ';)', 'oO', ':**', ' ', '..', 'уух', 'мм;)']
+
+    guys_random = random.randrange(0, len(guys))
+    greeting_random = random.randrange(0, len(greeting))
+    phrases_random = random.randrange(0, len(phrases))
+    emoji_random = random.randrange(0, len(emoji))
+
+    willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
+
+    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+    all_pict = len(path_to_pict)
+    pict_random = random.randrange(0, all_pict)
+    time.sleep(2)
+    pict = path_to_pict[pict_random].get_attribute('data-src')
+
+    return pict, willing_phrase
+
 def girl():
 
     try:
-        page = random.randrange(1, 10)
-        URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
-        driver.get(URL2)
-        wait1 = WebDriverWait(driver, 10)
+        bot.send_photo(-506817497, photo=girl_parse()[0])
+        bot.send_message(-506817497, girl_parse()[1])
 
-        guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
-        greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
-                    'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
-        phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'смотрите на мои вишенки',
-                   'как вам мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
-                   'ох, не смотри на меня так', 'мои булочки готовы для вас', 'рада тут побывать',
-                   'всегда готова, жду вас тут', 'порадуйте меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
-                   'сейчас позову подружек не хуже меня', 'сегодня здесь будет жарко', 'я вся горю',
-                   'классный денек сегодня, да?', 'погодка не фонтан, согрейте меня', 'всем хорошего дня!',
-                   'всем классного дня!', 'заходите поглядеть на меня еще', 'хватит палитьтся на мои титьки', 'как я вам?', 'оцените меня экспертно', 'не сломайте об меня глаза', 'сиськи заказывали?', 'как вам мои шары?']
-        emoji = ['$)', ':)', ';)', 'oO', ':**', ' ', '..', 'уух', 'мм;)']
-
-        guys_random = random.randrange(0, len(guys))
-        greeting_random = random.randrange(0, len(greeting))
-        phrases_random = random.randrange(0, len(phrases))
-        emoji_random = random.randrange(0, len(emoji))
-
-        willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
-
-        path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-        all_pict = len(path_to_pict)
-        pict_random = random.randrange(0, all_pict)
-        time.sleep(2)
-        pict = path_to_pict[pict_random].get_attribute('data-src')
-
-        # bot.send_photo(-1001464385948, photo=pict)
-        # bot.send_message(-1001464385948, willing_phrase)
-
-        bot.send_photo(-506817497, photo=pict)
-        bot.send_message(-506817497, willing_phrase)
-
-        bot.send_photo(-590852422, photo=pict)
-        bot.send_message(-590852422, willing_phrase)
+        bot.send_photo(-590852422, photo=girl_parse()[0])
+        bot.send_message(-590852422, girl_parse()[1])
         bot.send_message(-590852422, 'This func is Girl()')
 
     except:
-        girl()
+        bot.send_photo(-506817497, photo=girl_parse()[0])
+        bot.send_message(-506817497, girl_parse()[1])
 
+        bot.send_photo(-590852422, photo=girl_parse()[0])
+        bot.send_message(-590852422, girl_parse()[1])
+        bot.send_message(-590852422, 'This func is Girl()')
 
 
 def girl_double():
 
     try:
-        page = random.randrange(1, 10)
-        URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
-        driver.get(URL2)
-        wait1 = WebDriverWait(driver, 10)
-
-        guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество', 'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
-        greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей', 'буэнос диас',
-                    'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
-        phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'смотрите на мои вишенки',
-                   'как вам мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
-                   'ох, не смотри на меня так', 'мои булочки готовы для вас', 'рада тут побывать',
-                   'всегда готова, жду вас тут', 'порадуйте меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
-                   'сейчас позову подружек не хуже меня', 'сегодня здесь будет жарко', 'я вся горю',
-                   'классный денек сегодня, да?', 'погодка не фонтан, согрейте меня', 'всем хорошего дня!',
-                   'всем классного дня!', 'заходите поглядеть на меня еще', 'хватит палитьтся на мои титьки', 'как я вам?', 'оцените меня экспертно', 'не сломайте об меня глаза', 'сиськи заказывали?', 'как вам мои шары?']
-        emoji = ['$)', ':)', ';)', 'oO', ':**', ' ', '..', 'уух', 'мм;)']
-
-        guys_random = random.randrange(0, len(guys))
-        greeting_random = random.randrange(0, len(greeting))
-        phrases_random = random.randrange(0, len(phrases))
-        emoji_random = random.randrange(0, len(emoji))
-
-        willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
-
-        path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-        all_pict = len(path_to_pict)
-        pict_random = random.randrange(0, all_pict)
-        time.sleep(2)
-        pict = path_to_pict[pict_random].get_attribute('data-src')
-
-        bot.send_photo(-590852422, photo=pict)
+        bot.send_photo(-590852422, photo=girl_parse()[0])
+        bot.send_message(-590852422, girl_parse()[1])
         bot.send_message(-590852422, 'This func is Girl_double')
 
     except:
-        girl()
+        bot.send_photo(-590852422, photo=girl_parse()[0])
+        bot.send_message(-590852422, girl_parse()[1])
+        bot.send_message(-590852422, 'This func is Girl_double')
+
+
+def girl_once(message):
+
+    try:
+        bot.send_photo(message.chat.id, photo=girl_parse()[0])
+        bot.send_message(message.chat.id, girl_parse()[1])
+
+    except:
+        bot.send_photo(message.chat.id, photo=girl_parse()[0])
+        bot.send_message(message.chat.id, girl_parse()[1])
+
+
 
 @server.route('/' + TOKEN, methods=['POST'])
 def getMessage():
