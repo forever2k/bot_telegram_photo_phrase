@@ -59,14 +59,14 @@ def send_girl(message):
 
     # girl()
     # bot.send_message(message.from_user.id, "First girl completed")
-
-    schedule.every(1).minutes.do(girl)
-    schedule.every(3).minutes.do(girl_double)
-    # schedule.every(6).hours.do(girl)
-
-    while launch:
-        schedule.run_pending()
-        time.sleep(1)
+    #
+    # schedule.every(1).minutes.do(girl)
+    # schedule.every(3).minutes.do(girl_double)
+    # # schedule.every(6).hours.do(girl)
+    #
+    # while launch:
+    #     schedule.run_pending()
+    #     time.sleep(1)
 
 
 @bot.message_handler(commands=['stop'])
@@ -191,43 +191,43 @@ def girl_parse():
     return pict, willing_phrase
 
 
-def send_photo(id_group):
+def send_photo_girl(id_group):
     bot.send_photo(id_group, photo=girl_parse()[0])
 
-def send_message(id_group):
+def send_message_for_girl(id_group):
     bot.send_message(id_group, girl_parse()[1])
 
 
-def girl():
-
-    try:
-        send_photo(group2)
-        send_message(group2)
-        bot.send_message(group2, 'This func is Girl()')
-
-    except:
-        send_photo(group2)
-        send_message(group2)
-        bot.send_message(group2, 'This func is Girl()')
-
-
-def girl_double():
-
-    try:
-        send_photo(group2)
-        send_message(group2)
-        bot.send_message(group2, 'This func is Girl_double')
-
-        send_photo(group3)
-        send_message(group3)
-
-    except:
-        send_photo(group2)
-        send_message(group2)
-        bot.send_message(group2, 'This func is Girl_double')
-
-        send_photo(group3)
-        send_message(group3)
+# def girl():
+#
+#     try:
+#         send_photo(group2)
+#         send_message(group2)
+#         bot.send_message(group2, 'This func is Girl()')
+#
+#     except:
+#         send_photo(group2)
+#         send_message(group2)
+#         bot.send_message(group2, 'This func is Girl()')
+#
+#
+# def girl_double():
+#
+#     try:
+#         send_photo(group2)
+#         send_message(group2)
+#         bot.send_message(group2, 'This func is Girl_double')
+#
+#         send_photo(group3)
+#         send_message(group3)
+#
+#     except:
+#         send_photo(group2)
+#         send_message(group2)
+#         bot.send_message(group2, 'This func is Girl_double')
+#
+#         send_photo(group3)
+#         send_message(group3)
 
 
 def girl_once(message):
@@ -238,12 +238,12 @@ def girl_once(message):
     # bot.send_message(message.from_user.id, message.from_user.id)
 
     try:
-        send_photo(message.chat.id)
-        # send_message(message.chat.id)
+        send_photo_girl(message.chat.id)
+        send_message_for_girl(message.chat.id)
 
     except:
-        send_photo(message.chat.id)
-        # send_message(message.chat.id)
+        send_photo_girl(message.chat.id)
+        send_message_for_girl(message.chat.id)
 
 
 
