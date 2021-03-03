@@ -103,10 +103,10 @@ def x_keyboard():
 def callback_worker(call):
 
     if call.data == "Want":
-        girl_once(call.message)
+        send_girl_once(call.message)
 
     elif call.data == "Very want":
-        girl_once(call.message)
+        send_girl_once(call.message)
 
     elif call.data == "Cancel":
         msg = 'Пока пока'
