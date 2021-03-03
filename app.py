@@ -113,11 +113,11 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id, msg)
 
 
-@bot.message_handler(func=lambda message: True)
-def send_girl_once(message):
-
-    bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
-    girl_once(message)
+# @bot.message_handler(func=lambda message: True)
+# def send_girl_once(message):
+#
+#     bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
+#     girl_once(message)
 
 
 
@@ -200,6 +200,9 @@ def girl_double():
 def girl_once(message):
 
     bot.send_message(message.chat.id, 'here')
+    bot.send_message(message.chat.id, message.chat.id)
+    bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
+    bot.send_message(message.from_user.id, message.from_user.id)
 
     try:
         send_photo(message.chat.id)
