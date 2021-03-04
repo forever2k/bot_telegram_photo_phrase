@@ -1,4 +1,4 @@
-# import os
+import os
 # from selenium import webdriver
 import telebot
 from telebot import types
@@ -44,8 +44,8 @@ launch = True
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    # bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
-    bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
+    bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
+    # bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
     # bot.send_message(message.from_user.id, message.from_user.id)
 
 #
@@ -99,18 +99,18 @@ def x_keyboard():
     return keyboard
 
 
-@bot.callback_query_handler(func=lambda call: True)
-def callback_worker(call):
-
-    if call.data == "Want":
-        girl_once(call.message)
-
-    elif call.data == "Very want":
-        girl_once(call.message)
-
-    elif call.data == "Cancel":
-        msg = 'Пока пока'
-        bot.send_message(call.message.chat.id, msg)
+# @bot.callback_query_handler(func=lambda call: True)
+# def callback_worker(call):
+#
+#     if call.data == "Want":
+#         girl_once(call.message)
+#
+#     elif call.data == "Very want":
+#         girl_once(call.message)
+#
+#     elif call.data == "Cancel":
+#         msg = 'Пока пока'
+#         bot.send_message(call.message.chat.id, msg)
 
 
 # @bot.message_handler(func=lambda message: True)
