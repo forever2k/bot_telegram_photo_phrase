@@ -13,7 +13,7 @@ import time
 import random
 import requests
 import threading
-# from fake_useragent import UserAgent
+from fake_useragent import UserAgent
 
 #@siskiexpert
 # -590852422 test group 2
@@ -22,15 +22,15 @@ bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
 
-# ua = UserAgent()
-# headers = {'User-Agent': ua.random}
+ua = UserAgent()
+headers = {'User-Agent': ua.random}
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-sh-usage')
-# chrome_options.add_argument(headers)
+chrome_options.add_argument(headers)
 
 driver = webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), chrome_options=chrome_options)
 driver.implicitly_wait(4)
