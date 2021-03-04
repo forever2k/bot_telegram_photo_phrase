@@ -59,11 +59,11 @@ def send_girl(message):
 
     # girl()
     # bot.send_message(message.from_user.id, "First girl completed")
-    #
-    # schedule.every(1).minutes.do(run_threaded, girl)
-    # schedule.every(3).minutes.do(run_threaded, girl_double)
-    # # schedule.every(6).hours.do(girl)
-    #
+
+    schedule.every(1).minutes.do(run_threaded, girl)
+    schedule.every(3).minutes.do(run_threaded, girl_double)
+    # schedule.every(6).hours.do(girl)
+
     while launch:
         schedule.run_pending()
         time.sleep(1)
@@ -202,9 +202,9 @@ def girl_once(message):
 
 
 
-# def run_threaded(job_func):
-#     job_thread = threading.Thread(target=job_func)
-#     job_thread.start()
+def run_threaded(job_func):
+    job_thread = threading.Thread(target=job_func)
+    job_thread.start()
 
 
 
