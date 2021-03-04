@@ -124,6 +124,13 @@ def girl_parse():
 
     page = random.randrange(1, 10)
     URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+
+    if requests.get(URL2).status_code != 200:
+
+        while requests.get(URL2).status_code != 200:
+
+            URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+
     driver.get(URL2)
     wait1 = WebDriverWait(driver, 10)
 
