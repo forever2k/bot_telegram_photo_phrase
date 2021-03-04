@@ -12,6 +12,7 @@ import schedule
 import time
 import random
 import requests
+import threading
 
 #@siskiexpert
 # -590852422 test group 2
@@ -54,13 +55,13 @@ def send_girl(message):
     # girl()
     # bot.send_message(message.from_user.id, "First girl completed")
     #
-    # schedule.every(1).minutes.do(girl)
-    # schedule.every(3).minutes.do(girl_double)
+    schedule.every(1).minutes.do(run_threaded, girl)
+    schedule.every(3).minutes.do(run_threaded, girl_double)
     # # schedule.every(6).hours.do(girl)
     #
-    # while launch:
-    #     schedule.run_pending()
-    #     time.sleep(1)
+    while launch:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 @bot.message_handler(commands=['stop'])
@@ -160,42 +161,48 @@ def phrase():
 
 
 def send_photo_to(id_group):
-    bot.send_photo(id_group, photo=girl_parse())
+
+    try:
+        bot.send_photo(id_group, photo=girl_parse())
+    except:
+        bot.send_photo(id_group, photo=girl_parse())
 
 def send_message_to(id_group):
     bot.send_message(id_group, phrase())
 
 
 def girl():
+    #
+    # try:
+    send_photo_to(group2)
+    send_message_to(group2)
+    bot.send_message(group2, 'This func is Girl()')
 
-    try:
-        send_photo_to(group2)
-        send_message_to(group2)
-        bot.send_message(group2, 'This func is Girl()')
-
-    except:
-        send_photo_to(group2)
-        send_message_to(group2)
-        bot.send_message(group2, 'This func is Girl()')
+    # except:
+    #     print('mistake girl')
+    #     send_photo_to(group2)
+    #     send_message_to(group2)
+    #     bot.send_message(group2, 'This func is Girl()')
 
 
 def girl_double():
 
-    try:
-        send_photo_to(group2)
-        send_message_to(group2)
-        bot.send_message(group2, 'This func is Girl_double')
+    # try:
+    send_photo_to(group2)
+    send_message_to(group2)
+    bot.send_message(group2, 'This func is Girl_double')
 
-        send_photo_to(group3)
-        send_message_to(group3)
+    send_photo_to(group3)
+    send_message_to(group3)
 
-    except:
-        send_photo_to(group2)
-        send_message_to(group2)
-        bot.send_message(group2, 'This func is Girl_double')
-
-        send_photo_to(group3)
-        send_message_to(group3)
+    # except:
+    #     print('mistake girl_double')
+    #     send_photo_to(group2)
+    #     send_message_to(group2)
+    #     bot.send_message(group2, 'This func is Girl_double')
+    #
+    #     send_photo_to(group3)
+    #     send_message_to(group3)
 
 
 def girl_once(message):
@@ -203,13 +210,19 @@ def girl_once(message):
     bot.send_message(message.chat.id, 'here')
     bot.send_message(message.chat.id, message.chat.id)
 
-    try:
-        send_photo_to(message.chat.id)
-        send_message_to(message.chat.id)
+    # try:
+    send_photo_to(message.chat.id)
+    send_message_to(message.chat.id)
 
-    except:
-        send_photo_to(message.chat.id)
-        send_message_to(message.chat.id)
+    # except:
+    #     print('mistake girl_once')
+    #     send_photo_to(message.chat.id)
+    #     send_message_to(message.chat.id)
+
+
+def run_threaded(job_func):
+    job_thread = threading.Thread(target=job_func)
+    job_thread.start()
 
 
 
