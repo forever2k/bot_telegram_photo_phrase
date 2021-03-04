@@ -120,25 +120,45 @@ def callback_worker(call):
 #     girl_once(message)
 
 
-
 def girl_parse():
 
-    try:
-        page = random.randrange(1, 10)
-        URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
-        driver.get(URL2)
-        wait1 = WebDriverWait(driver, 10)
+    page = random.randrange(1, 10)
+    URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+    driver.get(URL2)
+    wait1 = WebDriverWait(driver, 10)
 
-        path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-        all_pict = len(path_to_pict)
-        pict_random = random.randrange(0, all_pict)
-        time.sleep(2)
-        pict = path_to_pict[pict_random].get_attribute('data-src')
+    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+    all_pict = len(path_to_pict)
+    pict_random = random.randrange(0, all_pict)
+    time.sleep(2)
+    pict = path_to_pict[pict_random].get_attribute('data-src')
 
+    page = requests.get(pict)
+
+    if page.status_code == 200:
         return pict
-
-    except:
+    else:
         girl_parse()
+
+
+# def girl_parse():
+#
+#     try:
+#         page = random.randrange(1, 10)
+#         URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+#         driver.get(URL2)
+#         wait1 = WebDriverWait(driver, 10)
+#
+#         path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+#         all_pict = len(path_to_pict)
+#         pict_random = random.randrange(0, all_pict)
+#         time.sleep(2)
+#         pict = path_to_pict[pict_random].get_attribute('data-src')
+#
+#         return pict
+#
+#     except:
+#         girl_parse()
 
 
 def phrase():
@@ -191,11 +211,10 @@ def girl_double():
 
 def girl_once(message):
 
+    bot.send_message(message.chat.id, 'Please wait, I am looking for sisechki')
+
     pict_to = girl_parse()
     phrase_to = phrase()
-
-    bot.send_message(message.chat.id, 'here')
-    bot.send_message(message.chat.id, message.chat.id)
 
     bot.send_photo(message.chat.id, photo=pict_to)
     bot.send_message(message.chat.id, phrase_to)
