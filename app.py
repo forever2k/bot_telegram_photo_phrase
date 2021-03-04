@@ -118,18 +118,22 @@ def callback_worker(call):
 
 def girl_parse():
 
-    page = random.randrange(1, 10)
-    URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
-    driver.get(URL2)
-    wait1 = WebDriverWait(driver, 10)
+    try:
+        page = random.randrange(1, 10)
+        URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+        driver.get(URL2)
+        wait1 = WebDriverWait(driver, 10)
 
-    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-    all_pict = len(path_to_pict)
-    pict_random = random.randrange(0, all_pict)
-    time.sleep(2)
-    pict = path_to_pict[pict_random].get_attribute('data-src')
+        path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+        all_pict = len(path_to_pict)
+        pict_random = random.randrange(0, all_pict)
+        time.sleep(2)
+        pict = path_to_pict[pict_random].get_attribute('data-src')
 
-    return pict
+        return pict
+
+    except:
+        girl_parse()
 
 
 def phrase():
@@ -160,64 +164,37 @@ def phrase():
     return willing_phrase
 
 
-def send_photo_to(id_group):
-
-    try:
-        bot.send_photo(id_group, photo=girl_parse())
-    except:
-        bot.send_photo(id_group, photo=girl_parse())
-
-def send_message_to(id_group):
-    bot.send_message(id_group, phrase())
-
-
 def girl():
-    #
-    # try:
-    send_photo_to(group2)
-    send_message_to(group2)
-    bot.send_message(group2, 'This func is Girl()')
 
-    # except:
-    #     print('mistake girl')
-    #     send_photo_to(group2)
-    #     send_message_to(group2)
-    #     bot.send_message(group2, 'This func is Girl()')
+    pict_to = girl_parse()
+    phrase_to = phrase()
+
+    bot.send_photo(group2, photo=pict_to)
+    bot.send_message(group2, phrase_to)
 
 
 def girl_double():
 
-    # try:
-    send_photo_to(group2)
-    send_message_to(group2)
-    bot.send_message(group2, 'This func is Girl_double')
+    pict_to = girl_parse()
+    phrase_to = phrase()
 
-    send_photo_to(group3)
-    send_message_to(group3)
-
-    # except:
-    #     print('mistake girl_double')
-    #     send_photo_to(group2)
-    #     send_message_to(group2)
-    #     bot.send_message(group2, 'This func is Girl_double')
-    #
-    #     send_photo_to(group3)
-    #     send_message_to(group3)
+    bot.send_photo(group2, photo=pict_to)
+    bot.send_message(group2, phrase_to)
+    bot.send_photo(group3, photo=pict_to)
+    bot.send_message(group3, phrase_to)
 
 
 def girl_once(message):
 
+    pict_to = girl_parse()
+    phrase_to = phrase()
+
     bot.send_message(message.chat.id, 'here')
     bot.send_message(message.chat.id, message.chat.id)
 
-    # try:
-    send_photo_to(message.chat.id)
-    send_message_to(message.chat.id)
+    bot.send_photo(message.chat.id, photo=pict_to)
+    bot.send_message(message.chat.id, phrase())
 
-    # except:
-    #     print('mistake girl_once')
-    #     send_photo_to(message.chat.id)
-    #     send_message_to(message.chat.id)
 
 
 def run_threaded(job_func):
