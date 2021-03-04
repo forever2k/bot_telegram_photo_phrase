@@ -44,8 +44,8 @@ launch = True
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
-    # bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
+    # bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
+    bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
     # bot.send_message(message.from_user.id, message.from_user.id)
 
 
@@ -198,7 +198,7 @@ def girl_once(message):
     bot.send_message(message.chat.id, message.chat.id)
 
     bot.send_photo(message.chat.id, photo=pict_to)
-    bot.send_message(message.chat.id, phrase())
+    bot.send_message(message.chat.id, phrase_to)
 
 
 
