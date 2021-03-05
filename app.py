@@ -147,14 +147,17 @@ def girl_parse():
     if page.status_code == 200:
         return pict
     else:
+        bot.send_message(group2, "girl_parse else works")
         girl_parse()
+
+
 
 
 # def girl_parse():
 #
 #     try:
 #         page = random.randrange(1, 10)
-#         URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+#         URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'o
 #         driver.get(URL2)
 #         wait1 = WebDriverWait(driver, 10)
 #
