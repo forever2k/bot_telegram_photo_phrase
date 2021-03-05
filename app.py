@@ -138,9 +138,28 @@ def girl_parse():
 
     path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
     all_pict = len(path_to_pict)
-    pict_random = random.randrange(0, all_pict)
-    time.sleep(2)
-    pict = path_to_pict[pict_random].get_attribute('data-src')
+
+
+
+    
+    code = 0
+    
+    while code == 0:
+        bot.send_message(group2, "while works")
+        pict_random = random.randrange(0, all_pict)
+        pict = path_to_pict[pict_random].get_attribute('data-src')
+        page = requests.get(pict)
+        bot.send_message(group2, "before IF page.status.code")
+        bot.send_message(group2, page.status_code)
+        if page.status_code == 200:
+            bot.send_message(group2, "code 200")
+            code = 200
+        
+
+
+   
+
+
 
     return pict
 
@@ -182,6 +201,7 @@ def check():
         bot.send_message(group2, "while works")
         val = girl_parse()
         page = requests.get(val)
+        bot.send_message(group2, "before send page.status.code")
         bot.send_message(group2, page.status_code)
         if page.status_code == 200:
             code == 200
@@ -246,7 +266,7 @@ def phrase():
 
 def girl():
 
-    pict_to = check()
+    pict_to = girl_parse()
     phrase_to = phrase()
 
     bot.send_photo(group2, photo=pict_to)
@@ -255,7 +275,7 @@ def girl():
 
 def girl_double():
 
-    pict_to = check()
+    pict_to = girl_parse()
     phrase_to = phrase()
 
     bot.send_photo(group2, photo=pict_to)
@@ -268,7 +288,7 @@ def girl_once(message):
 
     bot.send_message(message.chat.id, 'Please wait, I am looking for sisechki')
 
-    pict_to = check()
+    pict_to = girl_parse()
     phrase_to = phrase()
 
     bot.send_photo(message.chat.id, photo=pict_to)
