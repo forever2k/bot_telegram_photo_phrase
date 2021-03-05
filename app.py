@@ -164,6 +164,48 @@ def girl_parse():
     return pict
 
 
+def girl_parse2():
+
+    page = random.randrange(1, 10)
+    URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+
+    if requests.get(URL2).status_code != 200:
+
+        while requests.get(URL2).status_code != 200:
+
+            URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+
+    driver.get(URL2)
+    wait1 = WebDriverWait(driver, 10)
+
+    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+    all_pict = len(path_to_pict)
+
+
+
+    
+    code = 0
+    
+    while code == 0:
+        bot.send_message(group2, "while works")
+        pict_random = random.randrange(0, all_pict)
+        pict = path_to_pict[pict_random].get_attribute('data-src')
+        page = requests.get(pict)
+        bot.send_message(group2, "before IF page.status.code")
+        bot.send_message(group2, page.status_code)
+        if page.status_code == 200:
+            bot.send_message(group2, "code 200")
+            code = 200
+        
+
+
+   
+
+
+
+    return pict
+
+
 
 
     
@@ -275,7 +317,7 @@ def girl():
 
 def girl_double():
 
-    pict_to = girl_parse()
+    pict_to = girl_parse2()
     phrase_to = phrase()
 
     bot.send_photo(group2, photo=pict_to)
@@ -288,7 +330,7 @@ def girl_once(message):
 
     bot.send_message(message.chat.id, 'Please wait, I am looking for sisechki')
 
-    pict_to = girl_parse()
+    pict_to = girl_parse2()
     phrase_to = phrase()
 
     bot.send_photo(message.chat.id, photo=pict_to)
