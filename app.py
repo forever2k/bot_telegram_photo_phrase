@@ -142,13 +142,13 @@ def girl_parse():
     time.sleep(2)
     pict = path_to_pict[pict_random].get_attribute('data-src')
 
-    page = requests.get(pict)
+    return pict
 
-    if page.status_code == 200:
-        return pict
-    else:
-        bot.send_message(group2, "girl_parse else works")
-        girl_parse()
+
+
+
+    
+
 
 
 
@@ -172,6 +172,46 @@ def girl_parse():
 #     except:
 #         girl_parse()
 
+
+
+def check():
+    
+    code = 0
+    
+    while code == 0:
+        bot.send_message(group2, "while works")
+        val = girl_parse()
+        page = requests.get(val)
+        if page.status_code == 200:
+            code == 200
+            return val
+        
+
+   
+
+        
+
+
+        
+
+
+   
+
+
+    
+
+        
+     
+
+   
+     
+        
+        
+
+
+
+        
+    
 
 def phrase():
 
@@ -203,7 +243,7 @@ def phrase():
 
 def girl():
 
-    pict_to = girl_parse()
+    pict_to = check()
     phrase_to = phrase()
 
     bot.send_photo(group2, photo=pict_to)
@@ -212,7 +252,7 @@ def girl():
 
 def girl_double():
 
-    pict_to = girl_parse()
+    pict_to = check()
     phrase_to = phrase()
 
     bot.send_photo(group2, photo=pict_to)
@@ -225,7 +265,7 @@ def girl_once(message):
 
     bot.send_message(message.chat.id, 'Please wait, I am looking for sisechki')
 
-    pict_to = girl_parse()
+    pict_to = check()
     phrase_to = phrase()
 
     bot.send_photo(message.chat.id, photo=pict_to)
