@@ -182,9 +182,12 @@ def check():
         bot.send_message(group2, "while works")
         val = girl_parse()
         page = requests.get(val)
+        bot.send_message(group2, page.status_code)
         if page.status_code == 200:
             code == 200
-            return val
+            bot.send_message(group2, "code 200")
+            
+        return val
         
 
    
