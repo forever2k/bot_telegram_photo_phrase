@@ -60,8 +60,10 @@ def send_girl(message):
     # girl()
     # bot.send_message(message.from_user.id, "First girl completed")
 
+    schedule.every(60).seconds.do(run_threaded, send_ping_phrase)
     schedule.every(5).minutes.do(run_threaded, girl)
     schedule.every(10).minutes.do(run_threaded, girl_double)
+  
     # schedule.every(6).hours.do(girl)
 
     while launch:
@@ -226,7 +228,8 @@ def girl_once(message):
     bot.send_photo(message.chat.id, photo=pict_to)
     bot.send_message(message.chat.id, phrase_to)
 
-
+def send_ping_phrase():
+    bot.send_message(group2, "ping")
 
 def run_threaded(job_func):
     job_thread = threading.Thread(target=job_func)
