@@ -123,6 +123,7 @@ def callback_worker(call):
 
 
 def girl_parse():
+    bot.send_message(group2, "srart Girl_parse")
 
     page = random.randrange(1, 10)
     URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
@@ -165,6 +166,7 @@ def girl_parse():
 
 
 def girl_parse2():
+    bot.send_message(group2, "srart Girl_parse 2222")
 
     page = random.randrange(1, 10)
     URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
@@ -187,14 +189,14 @@ def girl_parse2():
     code = 0
     
     while code == 0:
-        bot.send_message(group2, "while works")
+        bot.send_message(group2, "while 2222 works")
         pict_random = random.randrange(0, all_pict)
         pict = path_to_pict[pict_random].get_attribute('data-src')
         page = requests.get(pict)
-        bot.send_message(group2, "before IF page.status.code")
+        bot.send_message(group2, "before IF 2222 page.status.code")
         bot.send_message(group2, page.status_code)
         if page.status_code == 200:
-            bot.send_message(group2, "code 200")
+            bot.send_message(group2, "code 2222 200")
             code = 200
         
 
