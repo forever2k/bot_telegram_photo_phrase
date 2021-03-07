@@ -51,7 +51,7 @@ def send_welcome(message):
 def send_girl(message):
     bot.send_message(message.from_user.id, "Send Bot works")
 
-    start_girl()
+    start_girl(message)
 
 
     get_girl_links()
@@ -71,19 +71,20 @@ def send_girl(message):
 
 @bot.message_handler(commands=['stop'])
 def stop_send_girl(message):
-    stop_girl()
-    bot.send_message(message.from_user.id, "Send girl Bot finished work")
+    stop_girl(message)
 
 
-def stop_girl():
+
+def stop_girl(message):
     global launch
     launch = False
+    bot.send_message(message.from_user.id, "STOP is activated")
 
 
-def start_girl():
+def start_girl(message):
     global launch
     launch = True
-    bot.send_message(group2, "Start Bot is activated")
+    bot.send_message(message.from_user.id, "Start is activated")
 
 
 def x_keyboard():
