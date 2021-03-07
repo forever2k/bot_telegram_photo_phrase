@@ -143,7 +143,10 @@ def get_girl_links():
         pict = item.get_attribute('data-src')
         page = requests.get(pict)
 
+        pict_width = item.size["width"]
+
         if page.status_code == 200:
+            bot.send_message(group2, pict_width)
             link_girls.append(pict)
 
     len_ = len(link_girls)
@@ -183,6 +186,10 @@ def girl():
 
     bot.send_message(group2, "girl starts")
     len_ = len(link_girls)
+
+    if len_ == 0:
+        time.sleep(15)
+
     bot.send_message(group2, f'It`s the length of array girls in Girl(){len_}')
 
     pict = link_girls[random.randrange(0, len_)]
@@ -200,6 +207,10 @@ def girl_double():
 
     bot.send_message(group2, "girl_double starts")
     len_ = len(link_girls)
+
+    if len_ == 0:
+        time.sleep(15)
+
     bot.send_message(group2, f'It`s the length of array girls in Girl_double(){len_}')
 
     pict = link_girls[random.randrange(0, len_)]
