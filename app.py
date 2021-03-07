@@ -13,24 +13,20 @@ import time
 import random
 import requests
 import threading
-from fake_useragent import UserAgent
 
-#@siskiexpert
+# @siskiexpert
 # -590852422 test group 2
 # -506817497 test group 3
 bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
 
-# ua = UserAgent()
-# headers = {'User-Agent': ua.random}
-
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-sh-usage')
-# chrome_options.add_argument(headers)
+
 
 driver = webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), chrome_options=chrome_options)
 driver.implicitly_wait(4)
@@ -41,6 +37,7 @@ group3 = -506817497
 
 launch = True
 
+link_girls = []
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -51,17 +48,18 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['send'])
 def send_girl(message):
-
     bot.send_message(message.from_user.id, "Send Bot works")
 
     start_girl()
     bot.send_message(message.from_user.id, "Start Bot is activated")
 
-    # girl()
+    get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
 
-    schedule.every(80).minutes.do(run_threaded, girl)
-    schedule.every(180).minutes.do(run_threaded, girl_double)
+    schedule.every(2).minutes.do(run_threaded, girl)
+    schedule.every(10).minutes.do(run_threaded, girl_double)
+    schedule.every(30).minutes.do(run_threaded, get_girl_links)
+
     # schedule.every(6).hours.do(girl)
 
     while launch:
@@ -71,19 +69,16 @@ def send_girl(message):
 
 @bot.message_handler(commands=['stop'])
 def stop_send_girl(message):
-
     stop_girl()
     bot.send_message(message.from_user.id, "Send girl Bot finished work")
 
 
 def stop_girl():
-
     global launch
     launch = False
 
 
 def start_girl():
-
     global launch
     launch = True
 
@@ -101,7 +96,6 @@ def x_keyboard():
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
-
     if call.data == "Want":
         girl_once(call.message)
 
@@ -120,56 +114,45 @@ def callback_worker(call):
 #     girl_once(message)
 
 
-def girl_parse():
+def get_girl_links():
 
-    page = random.randrange(1, 10)
-    URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-sh-usage')
 
-    if requests.get(URL2).status_code != 200:
+    driver = webdriver.Chrome()
 
-        while requests.get(URL2).status_code != 200:
+    page_random = random.randrange(1, 10)
+    URL = 'https://xxx.pics/category/cute/' + str(page_random) + '/'
 
-            URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
+    page = requests.get(URL)
 
-    driver.get(URL2)
-    wait1 = WebDriverWait(driver, 10)
+    if page.status_code != 200:
 
-    path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-    all_pict = len(path_to_pict)
-    pict_random = random.randrange(0, all_pict)
-    time.sleep(2)
-    pict = path_to_pict[pict_random].get_attribute('data-src')
+        while page.status_code != 200:
+            page_random = random.randrange(1, 10)
+            URL = 'https://xxx.pics/category/cute/' + str(page_random) + '/'
+            page = requests.get(URL)
 
-    page = requests.get(pict)
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
 
-    if page.status_code == 200:
-        return pict
-    else:
-        girl_parse()
+    all_pict_link = wait.until(
+        expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
+    # all_pict = len(path_to_pict)
 
+    for item in all_pict_link:
 
-# def girl_parse():
-#
-#     try:
-#         page = random.randrange(1, 10)
-#         URL2 = 'https://xxx.pics/category/cute/' + str(page) + '/'
-#         driver.get(URL2)
-#         wait1 = WebDriverWait(driver, 10)
-#
-#         path_to_pict = wait1.until(expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
-#         all_pict = len(path_to_pict)
-#         pict_random = random.randrange(0, all_pict)
-#         time.sleep(2)
-#         pict = path_to_pict[pict_random].get_attribute('data-src')
-#
-#         return pict
-#
-#     except:
-#         girl_parse()
+        pict = item.get_attribute('data-src')
+        page = requests.get(pict)
+
+        if page.status_code == 200:
+            link_girls.append(pict)
+
 
 
 def phrase():
-
     guys = ['парни', 'ребятушки', 'братушки', 'ребятки', 'мужики', 'перцы', 'эксперты', 'экспертное сообщество',
             'мои герои', 'сладкие мои', 'chicos', 'sexo masculino']
     greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей',
@@ -198,34 +181,39 @@ def phrase():
 
 def girl():
 
-    pict_to = girl_parse()
-    phrase_to = phrase()
+    pict = link_girls[random.randrange(0, len(link_girls))]
+    bot.send_photo(group2, photo=pict)
 
-    bot.send_photo(group2, photo=pict_to)
+    phrase_to = phrase()
     bot.send_message(group2, phrase_to)
 
 
 def girl_double():
 
-    pict_to = girl_parse()
-    phrase_to = phrase()
+    pict = link_girls[random.randrange(0, len(link_girls))]
+    bot.send_photo(group2, photo=pict)
+    bot.send_photo(group3, photo=pict)
 
-    bot.send_photo(group2, photo=pict_to)
-    bot.send_message(group2, phrase_to)
-    bot.send_photo(group3, photo=pict_to)
-    bot.send_message(group3, phrase_to)
+    phrase_to = phrase()
+    bot.send_photo(group2, photo=phrase_to)
+    bot.send_photo(group3, photo=phrase_to)
+
 
 
 def girl_once(message):
 
-    bot.send_message(message.chat.id, 'Please wait, I am looking for sisechki')
-
-    pict_to = girl_parse()
+    pict = link_girls[random.randrange(0, len(link_girls))]
     phrase_to = phrase()
 
-    bot.send_photo(message.chat.id, photo=pict_to)
+    # bot.send_message(message.chat.id, 'here')
+    # bot.send_message(message.chat.id, message.chat.id)
+
+    bot.send_photo(message.chat.id, photo=pict)
     bot.send_message(message.chat.id, phrase_to)
 
+
+def send_ping_phrase():
+    bot.send_message(group2, "ping")
 
 
 def run_threaded(job_func):
@@ -233,22 +221,19 @@ def run_threaded(job_func):
     job_thread.start()
 
 
-
 @server.route('/' + TOKEN, methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "it works", 200
 
+
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url = APP_NAME + TOKEN)
+    bot.set_webhook(url=APP_NAME + TOKEN)
     return "it worksssssssss", 200
-
 
 
 if __name__ == '__main__':
     server.debug = True
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-
-
