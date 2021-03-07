@@ -63,7 +63,6 @@ def send_girl(message):
 
     # schedule.every(6).hours.do(girl)
 
-
     while launch:
         schedule.run_pending()
         time.sleep(1)
