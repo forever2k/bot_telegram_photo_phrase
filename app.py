@@ -57,8 +57,8 @@ def send_girl(message):
     # bot.send_message(message.from_user.id, "First girl completed")
     schedule.every(50).seconds.do(run_threaded, ping)
 
-    schedule.every(60).seconds.do(run_threaded, girl, link_girls)
-    schedule.every(10).minutes.do(run_threaded, girl_double, link_girls)
+    schedule.every(60).seconds.do(run_threaded, girl(link_girls))
+    schedule.every(10).minutes.do(run_threaded, girl_double(link_girls))
     schedule.every(30).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
@@ -182,7 +182,7 @@ def girl(array_girls_links):
 
     bot.send_message(group2, "girl starts")
     len_ = len(array_girls_links)
-    bot.send_message(group2, f'It`s the length of array girls in Girl(){len(array_girls_links)}')
+    # bot.send_message(group2, f'It`s the length of array girls in Girl(){len(array_girls_links)}')
 
     pict = link_girls[random.randrange(0, len_)]
     bot.send_photo(group2, photo=pict)
@@ -195,7 +195,7 @@ def girl_double(array_girls_links):
 
     bot.send_message(group2, "girl_double starts")
     len_ = len(array_girls_links)
-    bot.send_message(group2, f'It`s the length of array girls in Girl_double(){len(array_girls_links)}')
+    # bot.send_message(group2, f'It`s the length of array girls in Girl_double(){len(array_girls_links)}')
 
     pict = array_girls_links[random.randrange(0, len_)]
     bot.send_photo(group2, photo=pict)
