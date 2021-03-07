@@ -48,7 +48,7 @@ def send_welcome(message):
 
 
 @bot.message_handler(commands=['send'])
-def send_girl(message, link_girls):
+def send_girl(message):
     bot.send_message(message.from_user.id, "Send Bot works")
 
     start_girl(message)
@@ -57,8 +57,8 @@ def send_girl(message, link_girls):
     # bot.send_message(message.from_user.id, "First girl completed")
     schedule.every(50).seconds.do(run_threaded, ping)
 
-    schedule.every(60).seconds.do(run_threaded, girl, array_girls_links=link_girls)
-    schedule.every(10).minutes.do(run_threaded, girl_double, array_girls_links=link_girls)
+    schedule.every(60).seconds.do(run_threaded, girl, link_girls)
+    schedule.every(10).minutes.do(run_threaded, girl_double, link_girls)
     schedule.every(30).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
