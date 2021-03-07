@@ -48,7 +48,7 @@ def send_welcome(message):
 
 
 @bot.message_handler(commands=['send'])
-def send_girl(message):
+def send_girl(message, link_girls):
     bot.send_message(message.from_user.id, "Send Bot works")
 
     start_girl(message)
