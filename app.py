@@ -181,6 +181,7 @@ def phrase():
 
 
 def girl():
+    bot.send_message(group2, "girl starts")
 
     pict = link_girls[random.randrange(0, len(link_girls))]
     bot.send_photo(group2, photo=pict)
@@ -190,6 +191,7 @@ def girl():
 
 
 def girl_double():
+    bot.send_message(group2, "girl_double starts")
 
     pict = link_girls[random.randrange(0, len(link_girls))]
     bot.send_photo(group2, photo=pict)
