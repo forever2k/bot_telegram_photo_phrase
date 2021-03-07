@@ -51,13 +51,14 @@ def send_welcome(message):
 def send_girl(message):
     bot.send_message(message.from_user.id, "Send Bot works")
 
-    start_girl()
-    bot.send_message(message.from_user.id, "Start Bot is activated")
+    start_girl(message)
+
 
     get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
+    schedule.every(50).seconds.do(run_threaded, ping)
 
-    schedule.every(2).minutes.do(run_threaded, girl)
+    schedule.every(60).seconds.do(run_threaded, girl, array_girls_links = link_girls)
     schedule.every(10).minutes.do(run_threaded, girl_double)
     schedule.every(30).minutes.do(run_threaded, get_girl_links)
 
@@ -70,18 +71,20 @@ def send_girl(message):
 
 @bot.message_handler(commands=['stop'])
 def stop_send_girl(message):
-    stop_girl()
-    bot.send_message(message.from_user.id, "Send girl Bot finished work")
+    stop_girl(message)
 
 
-def stop_girl():
+
+def stop_girl(message):
     global launch
     launch = False
+    bot.send_message(message.from_user.id, "STOP is activated")
 
 
-def start_girl():
+def start_girl(message):
     global launch
     launch = True
+    bot.send_message(message.from_user.id, "Start is activated")
 
 
 def x_keyboard():
@@ -114,15 +117,11 @@ def callback_worker(call):
 #     bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
 #     girl_once(message)
 
+def ping():
+    bot.send_message(group2, "ping")
+
 
 def get_girl_links():
-
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-sh-usage')
-
-    driver = webdriver.Chrome()
 
     page_random = random.randrange(1, 10)
     URL = 'https://xxx.pics/category/cute/' + str(page_random) + '/'
@@ -180,18 +179,20 @@ def phrase():
     return willing_phrase
 
 
-def girl():
+def girl(array_girls_links):
+    bot.send_message(group2, "girl starts")
 
-    pict = link_girls[random.randrange(0, len(link_girls))]
+    pict = link_girls[random.randrange(0, len(array_girls_links))]
     bot.send_photo(group2, photo=pict)
 
     phrase_to = phrase()
     bot.send_message(group2, phrase_to)
 
 
-def girl_double():
+def girl_double(array_girls_links):
+    bot.send_message(group2, "girl_double starts")
 
-    pict = link_girls[random.randrange(0, len(link_girls))]
+    pict = array_girls_links[random.randrange(0, len(array_girls_links))]
     bot.send_photo(group2, photo=pict)
     bot.send_photo(group3, photo=pict)
 
