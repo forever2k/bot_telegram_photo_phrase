@@ -55,7 +55,7 @@ def send_girl(message):
 
     get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
-    schedule.every(50).seconds.do(run_threaded, ping)
+    schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
     schedule.every(60).seconds.do(run_threaded, girl)
     schedule.every(10).minutes.do(run_threaded, girl_double)
@@ -115,12 +115,6 @@ def callback_worker(call):
 #
 #     bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
 #     girl_once(message)
-
-def ping():
-
-    len_ = len(link_girls)
-    bot.send_message(group2, f'ping + {len_}')
-
 
 
 def get_girl_links():
@@ -192,7 +186,11 @@ def girl():
     bot.send_message(group2, f'It`s the length of array girls in Girl(){len_}')
 
     pict = link_girls[random.randrange(0, len_)]
-    bot.send_photo(group2, photo=pict)
+
+    try:
+        bot.send_photo(group2, photo=pict)
+    except Exception as e:
+        bot.send_message(group2, e)
 
     phrase_to = phrase()
     bot.send_message(group2, phrase_to)
@@ -205,12 +203,17 @@ def girl_double():
     bot.send_message(group2, f'It`s the length of array girls in Girl_double(){len_}')
 
     pict = link_girls[random.randrange(0, len_)]
-    bot.send_photo(group2, photo=pict)
-    bot.send_photo(group3, photo=pict)
+
+    try:
+        bot.send_photo(group2, photo=pict)
+        bot.send_photo(group3, photo=pict)
+    except Exception as e:
+        bot.send_message(group2, e)
+        bot.send_message(group3, e)
 
     phrase_to = phrase()
-    bot.send_photo(group2, photo=phrase_to)
-    bot.send_photo(group3, photo=phrase_to)
+    bot.send_message(group2, phrase_to)
+    bot.send_message(group3, phrase_to)
 
 
 
@@ -227,7 +230,8 @@ def girl_once(message):
 
 
 def send_ping_phrase():
-    bot.send_message(group2, "ping")
+    len_ = len(link_girls)
+    bot.send_message(group2, f'ping + {len_}')
 
 
 def run_threaded(job_func):
