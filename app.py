@@ -145,8 +145,7 @@ def get_girl_links():
 
         pict_width = item.size["width"]
 
-        if page.status_code == 200:
-            bot.send_message(group2, pict_width)
+        if page.status_code == 200 and pict_width > 50:
             link_girls.append(pict)
 
     len_ = len(link_girls)
