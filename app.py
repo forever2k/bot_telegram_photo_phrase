@@ -55,10 +55,10 @@ def send_girl(message):
 
     get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
-    schedule.every(50).seconds.do(run_threaded, ping(link_girls))
+    schedule.every(50).seconds.do(run_threaded, ping)
 
-    schedule.every(60).seconds.do(run_threaded, girl(link_girls))
-    schedule.every(10).minutes.do(run_threaded, girl_double(link_girls))
+    schedule.every(60).seconds.do(run_threaded, girl)
+    schedule.every(10).minutes.do(run_threaded, girl_double)
     schedule.every(30).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
@@ -116,9 +116,9 @@ def callback_worker(call):
 #     bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
 #     girl_once(message)
 
-def ping(array_girls_links):
+def ping():
 
-    len_ = len(array_girls_links)
+    len_ = len(link_girls)
     bot.send_message(group2, f'ping + {len_}')
 
 
@@ -185,10 +185,10 @@ def phrase():
     return willing_phrase
 
 
-def girl(array_girls_links):
+def girl():
 
     bot.send_message(group2, "girl starts")
-    len_ = len(array_girls_links)
+    len_ = len(link_girls)
     bot.send_message(group2, f'It`s the length of array girls in Girl(){len_}')
 
     pict = link_girls[random.randrange(0, len_)]
@@ -198,13 +198,13 @@ def girl(array_girls_links):
     bot.send_message(group2, phrase_to)
 
 
-def girl_double(array_girls_links):
+def girl_double():
 
     bot.send_message(group2, "girl_double starts")
-    len_ = len(array_girls_links)
+    len_ = len(link_girls)
     bot.send_message(group2, f'It`s the length of array girls in Girl_double(){len_}')
 
-    pict = array_girls_links[random.randrange(0, len_)]
+    pict = link_girls[random.randrange(0, len_)]
     bot.send_photo(group2, photo=pict)
     bot.send_photo(group3, photo=pict)
 
