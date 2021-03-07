@@ -52,10 +52,11 @@ def send_girl(message):
     bot.send_message(message.from_user.id, "Send Bot works")
 
     start_girl()
-    bot.send_message(message.from_user.id, "Start Bot is activated")
+
 
     get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
+    schedule.every(60).seconds.do(run_threaded, ping)
 
     schedule.every(2).minutes.do(run_threaded, girl)
     schedule.every(10).minutes.do(run_threaded, girl_double)
@@ -82,6 +83,7 @@ def stop_girl():
 def start_girl():
     global launch
     launch = True
+    bot.send_message(group2, "Start Bot is activated")
 
 
 def x_keyboard():
@@ -114,15 +116,17 @@ def callback_worker(call):
 #     bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
 #     girl_once(message)
 
+def ping():
+    bot.send_message(group2, "ping")
 
 def get_girl_links():
 
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-sh-usage')
 
-    driver = webdriver.Chrome()
+
+
+
+
+
 
     page_random = random.randrange(1, 10)
     URL = 'https://xxx.pics/category/cute/' + str(page_random) + '/'
