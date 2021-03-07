@@ -185,7 +185,7 @@ def phrase():
     return willing_phrase
 
 
-def girl():
+def girl(link_girls):
     bot.send_message(group2, "girl starts")
 
     pict = link_girls[random.randrange(0, len(link_girls))]
@@ -195,7 +195,7 @@ def girl():
     bot.send_message(group2, phrase_to)
 
 
-def girl_double():
+def girl_double(link_girls):
     bot.send_message(group2, "girl_double starts")
 
     pict = link_girls[random.randrange(0, len(link_girls))]
