@@ -198,6 +198,7 @@ def girl():
     except Exception as e:
         bot.send_message(group2, e)
 
+    bot.send_message(group2, pict)
     phrase_to = phrase()
     bot.send_message(group2, phrase_to)
 
@@ -212,15 +213,16 @@ def girl_double():
 
     bot.send_message(group2, f'It`s the length of array girls in Girl_double(){len_}')
 
-    pict = link_girls[random.randrange(0, len_)]
+    pict_to_both = link_girls[random.randrange(0, len_)]
 
     try:
-        bot.send_photo(group2, photo=pict)
-        bot.send_photo(group3, photo=pict)
+        bot.send_photo(group2, photo=pict_to_both)
+        bot.send_photo(group3, photo=pict_to_both)
     except Exception as e:
         bot.send_message(group2, e)
         bot.send_message(group3, e)
 
+    bot.send_message(group2, pict_to_both)
     phrase_to = phrase()
     bot.send_message(group2, phrase_to)
     bot.send_message(group3, phrase_to)
