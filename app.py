@@ -53,7 +53,6 @@ def send_girl(message):
 
     start_girl(message)
 
-
     get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
     schedule.every(50).seconds.do(run_threaded, ping)
