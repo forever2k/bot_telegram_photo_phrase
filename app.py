@@ -58,7 +58,8 @@ def send_girl(message):
     schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
     schedule.every(60).seconds.do(run_threaded, girl)
-    schedule.every(10).minutes.do(run_threaded, girl_double)
+    schedule.every(70).seconds.do(run_threaded, additional_check)
+    schedule.every(7).minutes.do(run_threaded, girl_double)
     schedule.every(30).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
@@ -151,6 +152,20 @@ def get_girl_links():
     len_ = len(link_girls)
 
     bot.send_message(group2, len_)
+
+
+def additional_check():
+
+    for item in range(0, len(link_girls)):
+
+        page = requests.get(link_girls[item])
+
+        pict_width = link_girls[item].size["width"]
+
+        if page.status_code == 200 and pict_width > 50:
+            pass
+        else:
+            link_girls.pop(item)
 
 
 
