@@ -212,10 +212,11 @@ def girl():
         bot.send_photo(group2, photo=pict)
     except Exception as e:
         bot.send_message(group2, e)
+        girl()
 
-    bot.send_message(group2, pict)
-    phrase_to = phrase()
-    bot.send_message(group2, phrase_to)
+
+
+
 
 
 def girl_double():
@@ -236,11 +237,13 @@ def girl_double():
     except Exception as e:
         bot.send_message(group2, e)
         bot.send_message(group3, e)
+        girl_double()
 
-    bot.send_message(group2, pict_to_both)
-    phrase_to = phrase()
-    bot.send_message(group2, phrase_to)
-    bot.send_message(group3, phrase_to)
+
+
+
+
+
 
 
 
