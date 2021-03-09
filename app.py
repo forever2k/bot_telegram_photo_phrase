@@ -55,12 +55,12 @@ def send_girl(message):
 
     get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
-    schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
+    # schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
     schedule.every(60).seconds.do(run_threaded, girl)
-    schedule.every(70).seconds.do(run_threaded, additional_check)
-    schedule.every(7).minutes.do(run_threaded, girl_double)
-    schedule.every(30).minutes.do(run_threaded, get_girl_links)
+    # schedule.every(70).seconds.do(run_threaded, additional_check)
+    schedule.every(5).minutes.do(run_threaded, girl_double)
+    schedule.every(7).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
 
@@ -138,6 +138,8 @@ def get_girl_links():
     all_pict_link = wait.until(
         expected_conditions.visibility_of_all_elements_located((By.CLASS_NAME, 'pcsrt-th-lightgallery-item')))
     # all_pict = len(path_to_pict)
+    
+    link_girls.clear()
 
     for item in all_pict_link:
 
@@ -148,24 +150,27 @@ def get_girl_links():
 
         if page.status_code == 200 and pict_width > 50:
             link_girls.append(pict)
+        else:
+            pass
+
 
     len_ = len(link_girls)
 
-    bot.send_message(group2, len_)
+    bot.send_message(group2, f" get links finished {len_}")
 
 
-def additional_check():
 
-    for item in range(0, len(link_girls)):
 
-        page = requests.get(link_girls[item])
 
-        pict_width = link_girls[item].size["width"]
 
-        if page.status_code == 200 and pict_width > 50:
-            pass
-        else:
-            link_girls.pop(item)
+
+
+
+
+
+
+
+
 
 
 
@@ -198,13 +203,13 @@ def phrase():
 
 def girl():
 
-    bot.send_message(group2, "girl starts")
+    #bot.send_message(group2, "girl starts")
     len_ = len(link_girls)
 
-    if len_ == 0:
-        time.sleep(15)
+    while len_ == 0:
+        time.sleep(30)
 
-    bot.send_message(group2, f'It`s the length of array girls in Girl(){len_}')
+    bot.send_message(group2, f'It`s the length of array girls in Girl() {len_}')
 
     pict = link_girls[random.randrange(0, len_)]
 
@@ -213,6 +218,11 @@ def girl():
     except Exception as e:
         bot.send_message(group2, e)
         girl()
+        
+    phrase_to = phrase()
+    bot.send_message(group2, phrase_to)
+    
+    
 
 
 
@@ -221,13 +231,13 @@ def girl():
 
 def girl_double():
 
-    bot.send_message(group2, "girl_double starts")
+    #bot.send_message(group2, "girl_double starts")
     len_ = len(link_girls)
 
-    if len_ == 0:
-        time.sleep(15)
+    while len_ == 0:
+        time.sleep(30)
 
-    bot.send_message(group2, f'It`s the length of array girls in Girl_double(){len_}')
+    bot.send_message(group2, f'It`s the length of array girls in Girl_double() {len_}')
 
     pict_to_both = link_girls[random.randrange(0, len_)]
 
@@ -238,7 +248,12 @@ def girl_double():
         bot.send_message(group2, e)
         bot.send_message(group3, e)
         girl_double()
+        
+    phrase_to = phrase()
+    bot.send_message(group2, phrase_to)
+    bot.send_message(group3, phrase_to)
 
+    
 
 
 
@@ -248,8 +263,13 @@ def girl_double():
 
 
 def girl_once(message):
+    
+    len_ = len(link_girls)
+    
+    while len_ == 0:
+        time.sleep(30)
 
-    pict = link_girls[random.randrange(0, len(link_girls))]
+    pict = link_girls[random.randrange(0, len_)]
     phrase_to = phrase()
 
     # bot.send_message(message.chat.id, 'here')
@@ -259,9 +279,9 @@ def girl_once(message):
     bot.send_message(message.chat.id, phrase_to)
 
 
-def send_ping_phrase():
-    len_ = len(link_girls)
-    bot.send_message(group2, f'ping + {len_}')
+# def send_ping_phrase():
+   #  len_ = len(link_girls)
+   #  bot.send_message(group2, f'ping + {len_}')
 
 
 def run_threaded(job_func):
