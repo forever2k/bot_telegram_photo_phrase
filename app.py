@@ -183,7 +183,7 @@ def phrase():
 
 
 def girl():
-    # bot.send_message(group2, "girl starts")
+    bot.send_message(group2, "girl starts")
     len_ = len(link_girls)
 
     while len_ == 0:
@@ -204,7 +204,7 @@ def girl():
 
 
 def girl_double():
-    # bot.send_message(group2, "girl_double starts")
+    bot.send_message(group2, "girl_double starts")
     len_ = len(link_girls)
 
     while len_ == 0:
