@@ -228,6 +228,7 @@ def girl_double():
 
 
 def girl_once(message):
+
     len_ = len(link_girls)
 
     while len_ == 0:
