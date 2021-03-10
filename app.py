@@ -56,10 +56,10 @@ def send_girl(message):
     # bot.send_message(message.from_user.id, "First girl completed")
     # schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
-    schedule.every(20).minutes.do(run_threaded, girl)
+    schedule.every(120).minutes.do(run_threaded, girl)
     # schedule.every(70).seconds.do(run_threaded, additional_check)
-    schedule.every(80).minutes.do(run_threaded, girl_double)
-    schedule.every(60).minutes.do(run_threaded, get_girl_links)
+    schedule.every(200).minutes.do(run_threaded, girl_double)
+    schedule.every(150).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
 
@@ -152,7 +152,7 @@ def get_girl_links():
 
     len_ = len(link_girls)
 
-    bot.send_message(group2, f'===================== {len_}')
+   # bot.send_message(group2, f'===================== {len_}')
 
 
 def phrase():
@@ -183,7 +183,7 @@ def phrase():
 
 
 def girl():
-    bot.send_message(group2, "girl starts")
+    #bot.send_message(group2, "girl starts")
     len_ = len(link_girls)
 
     while len_ == 0:
@@ -196,7 +196,7 @@ def girl():
     try:
         bot.send_photo(group2, photo=pict)
     except Exception as e:
-        bot.send_message(group2, e)
+        #bot.send_message(group2, e)
         girl()
 
     phrase_to = phrase()
@@ -204,7 +204,7 @@ def girl():
 
 
 def girl_double():
-    bot.send_message(group2, "girl_double starts")
+   # bot.send_message(group2, "girl_double starts")
     len_ = len(link_girls)
 
     while len_ == 0:
@@ -218,8 +218,8 @@ def girl_double():
         bot.send_photo(group2, photo=pict_to_both)
         bot.send_photo(group3, photo=pict_to_both)
     except Exception as e:
-        bot.send_message(group2, e)
-        bot.send_message(group3, e)
+       # bot.send_message(group2, e)
+       # bot.send_message(group3, e)
         girl_double()
 
     phrase_to = phrase()
