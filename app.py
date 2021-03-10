@@ -46,6 +46,7 @@ def send_welcome(message):
     # bot.send_message(message.from_user.id, message.from_user.id)
 
 
+
 @bot.message_handler(commands=['send'])
 def send_girl(message):
     bot.send_message(message.from_user.id, "Send Bot works")
@@ -105,7 +106,7 @@ def callback_worker(call):
         girl_once(call.message)
 
     elif call.data == "Cancel":
-        msg = 'Пока пока'
+        msg = 'Пока пока, заходи еще ;)'
         bot.send_message(call.message.chat.id, msg)
 
 
