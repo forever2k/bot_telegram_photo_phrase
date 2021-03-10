@@ -32,7 +32,7 @@ driver.implicitly_wait(4)
 
 group2 = -590852422
 group3 = -506817497
-# # group_experts =
+group_experts = -1001464385948
 
 launch = True
 
@@ -242,7 +242,7 @@ def girl_double():
 
     try:
         bot.send_photo(group2, photo=pict_to_both)
-        bot.send_photo(group3, photo=pict_to_both)
+        bot.send_photo(group_experts, photo=pict_to_both)
     except Exception as e:
        # bot.send_message(group2, e)
        # bot.send_message(group3, e)
@@ -250,7 +250,7 @@ def girl_double():
 
     phrase_to = phrase()
     bot.send_message(group2, phrase_to)
-    bot.send_message(group3, phrase_to)
+    bot.send_message(group_experts, phrase_to)
 
 
 def girl_once(message):
