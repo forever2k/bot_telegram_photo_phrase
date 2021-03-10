@@ -71,11 +71,8 @@ def send_girl(message):
 
 
 @bot.message_handler(commands=['stop'])
-def stop_send_girl(message):
-    stop_girl(message)
-
-
 def stop_girl(message):
+
     global launch
     launch = False
     bot.send_message(message.from_user.id, "STOP is activated")
