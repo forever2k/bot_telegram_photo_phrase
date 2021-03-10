@@ -17,6 +17,8 @@ import threading
 # @siskiexpert
 # -590852422 test group 2
 # -506817497 test group 3
+# -1001464385948 group_experts
+
 bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
@@ -42,7 +44,6 @@ link_girls = []
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     # bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
-    get_girl_links()
     bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
     # bot.send_message(message.from_user.id, message.from_user.id)
 
@@ -54,7 +55,6 @@ def send_girl(message):
 
     start_girl(message)
 
-    get_girl_links()
     # bot.send_message(message.from_user.id, "First girl completed")
     # schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
@@ -82,9 +82,12 @@ def stop_girl(message):
 
 
 def start_girl(message):
+
     global launch
     launch = True
     bot.send_message(message.from_user.id, "Start is activated")
+
+    get_girl_links()
 
 
 def x_keyboard():
