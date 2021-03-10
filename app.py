@@ -42,6 +42,7 @@ link_girls = []
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     # bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
+    get_girl_links()
     bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
     # bot.send_message(message.from_user.id, message.from_user.id)
 
