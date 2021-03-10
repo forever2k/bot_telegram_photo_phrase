@@ -56,10 +56,10 @@ def send_girl(message):
     # bot.send_message(message.from_user.id, "First girl completed")
     # schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
-    schedule.every(20).minutes.do(run_threaded, girl)
+    schedule.every(240).minutes.do(run_threaded, girl)
     # schedule.every(70).seconds.do(run_threaded, additional_check)
-    schedule.every(80).minutes.do(run_threaded, girl_double)
-    schedule.every(60).minutes.do(run_threaded, get_girl_links)
+    schedule.every(600).minutes.do(run_threaded, girl_double)
+    schedule.every(400).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
 
@@ -152,7 +152,7 @@ def get_girl_links():
 
     len_ = len(link_girls)
 
-    bot.send_message(group2, f'===================== {len_}')
+   # bot.send_message(group2, f'===================== {len_}')
 
 
 def phrase():
@@ -161,7 +161,7 @@ def phrase():
     greeting = ['здарова', 'хая', 'салам', 'салют', 'здравствуйте', 'шалом', 'бонжур', 'хэллоу', 'хей',
                 'буэнос диас',
                 'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'prosperadlo', 'hola mis queridos']
-    phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'смотрите на мои вишенки',
+    phrases = ['как вам мои чики?', 'попробуйте меня', 'какая я вкусненькая', 'посмотрите на мои вишенки',
                'как вам мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
                'ох, не смотри на меня так', 'мои булочки готовы для вас', 'рада тут побывать',
                'всегда готова, жду вас тут', 'порадуйте меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
@@ -182,8 +182,33 @@ def phrase():
     return willing_phrase
 
 
+def phrase_once():
+    guys = ['парень', 'кабан', 'братух', 'перец', 'мужик', 'эксперт', 'мой герой', 'сладкий мой', 'chico', 'парниш', 'крепыш']
+    greeting = ['здарова', 'хая', 'салам', 'салют', 'здаров', 'шалом', 'бонжур', 'хэллоу', 'хей',
+                'буэнос диас',
+                'хола', 'доброго дня', 'добрый день', 'ассалам алейкум', 'hola', 'hola querido', 'эй']
+    phrases = ['как тебе мои чики?', 'попробуй меня', 'какая я вкусненькая', 'посмотри на мои вишенки',
+               'как тебе мои изюминки?', 'я вся горю', 'початимся?', 'пообщаемся?',
+               'ох, не смотри на меня так', 'мои булочки готовы для тебя', 'рада тут побывать',
+               'всегда готова, жду тебя тут', 'порадуй меня чем нибудь', 'я секси, да?', 'я конфетка, да?',
+               'сейчас позову подружек не хуже меня', 'сегодня здесь будет жарко', 'я вся горю',
+               'классный денек сегодня, да?', 'погодка не фонтан, согрей меня', 'хорошего дня!',
+               'классного дня!', 'заходи поглядеть на меня еще', 'хватит палитьтся на мои титьки',
+               'как я тебе?', 'оцени меня экспертно', 'не сломай об меня глаза', 'сиськи заказывал?',
+               'как тебе мои шары?']
+    emoji = ['$)', ':)', ';)', 'oO', ':**', ' ', '..', 'уух', 'мм;)']
+
+    guys_random = random.randrange(0, len(guys))
+    greeting_random = random.randrange(0, len(greeting))
+    phrases_random = random.randrange(0, len(phrases))
+    emoji_random = random.randrange(0, len(emoji))
+
+    willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
+
+    return willing_phrase
+
 def girl():
-    # bot.send_message(group2, "girl starts")
+    #bot.send_message(group2, "girl starts")
     len_ = len(link_girls)
 
     while len_ == 0:
@@ -196,7 +221,7 @@ def girl():
     try:
         bot.send_photo(group2, photo=pict)
     except Exception as e:
-        bot.send_message(group2, e)
+        #bot.send_message(group2, e)
         girl()
 
     phrase_to = phrase()
@@ -204,7 +229,7 @@ def girl():
 
 
 def girl_double():
-    # bot.send_message(group2, "girl_double starts")
+   # bot.send_message(group2, "girl_double starts")
     len_ = len(link_girls)
 
     while len_ == 0:
@@ -218,8 +243,8 @@ def girl_double():
         bot.send_photo(group2, photo=pict_to_both)
         bot.send_photo(group3, photo=pict_to_both)
     except Exception as e:
-        bot.send_message(group2, e)
-        bot.send_message(group3, e)
+       # bot.send_message(group2, e)
+       # bot.send_message(group3, e)
         girl_double()
 
     phrase_to = phrase()
@@ -235,7 +260,7 @@ def girl_once(message):
         time.sleep(30)
 
     pict = link_girls[random.randrange(0, len_)]
-    phrase_to = phrase()
+    phrase_to = phrase_once()
 
     # bot.send_message(message.chat.id, 'here')
     # bot.send_message(message.chat.id, message.chat.id)
