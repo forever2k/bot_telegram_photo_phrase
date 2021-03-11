@@ -60,8 +60,8 @@ def send_girl(message):
 
     schedule.every(60).minutes.do(run_threaded, girl)
     # schedule.every(70).seconds.do(run_threaded, additional_check)
-    schedule.every(600).minutes.do(run_threaded, girl_double)
-    schedule.every(400).minutes.do(run_threaded, get_girl_links)
+    schedule.every(180).minutes.do(run_threaded, girl_double)
+    schedule.every(120).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
 
@@ -73,8 +73,13 @@ def send_girl(message):
 @bot.message_handler(commands=['send2'])
 def send_girl(message):
     bot.send_message(message.from_user.id, "Send2 Bot works")
+    
+    len_girls = len(link_girls)
+    
+    if len_girls < 0:
+        get_girl_links()
 
-    get_girl_links()
+
     girl2()
         
 @bot.message_handler(commands=['stop'])
