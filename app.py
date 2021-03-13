@@ -97,6 +97,7 @@ def stop_girl(message):
     bot.send_message(message.from_user.id, "STOP is activated")
 
 
+
 @bot.message_handler(content_types=["text"])
 def repeat_all_messages(message):
     for_message = ['пока я туповат и никуя не понимаю', 'а вот и никуя', 'я просто эксперт по сиськам', 'да ладно?', 'отстань от меня человек', 'ой, всё', 'я в танке и ниипет', 'я устал, сегодня было много сисек']
