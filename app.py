@@ -85,7 +85,6 @@ def repeat_all_messages(message):
     bot_message = for_message[bot_message_random].capitalize()
     bot.send_message(message.chat.id, bot_message)
 
-
 def start_girl(message):
 
     global launch
