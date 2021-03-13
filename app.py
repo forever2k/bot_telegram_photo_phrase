@@ -88,6 +88,7 @@ def send_girl(message):
     girl2()
 
 
+
 @bot.message_handler(commands=['stop'])
 def stop_girl(message):
 
