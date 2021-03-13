@@ -44,6 +44,12 @@ link_girls = []
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     # bot.send_message(message.from_user.id, "Bot telegram_photo_phrase works")
+    
+    len_girls = len(link_girls)
+    
+    if len_girls == 0:
+        get_girl_links()
+        
     bot.send_message(message.from_user.id, text='Хочешь сиськи?', reply_markup=x_keyboard())
     # bot.send_message(message.from_user.id, message.from_user.id)
 
@@ -58,10 +64,10 @@ def send_girl(message):
     # bot.send_message(message.from_user.id, "First girl completed")
     # schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
-    schedule.every(240).minutes.do(run_threaded, girl)
+    schedule.every(60).minutes.do(run_threaded, girl)
     # schedule.every(70).seconds.do(run_threaded, additional_check)
-    schedule.every(600).minutes.do(run_threaded, girl_double)
-    schedule.every(400).minutes.do(run_threaded, get_girl_links)
+    schedule.every(180).minutes.do(run_threaded, girl_double)
+    schedule.every(120).minutes.do(run_threaded, get_girl_links)
 
     # schedule.every(6).hours.do(girl)
 
@@ -70,6 +76,18 @@ def send_girl(message):
         time.sleep(1)
 
 
+@bot.message_handler(commands=['send2'])
+def send_girl(message):
+    bot.send_message(message.from_user.id, "Send2 Bot works")
+    
+    len_girls = len(link_girls)
+    
+    if len_girls == 0:
+        get_girl_links()
+
+
+    girl2()
+        
 @bot.message_handler(commands=['stop'])
 def stop_girl(message):
 
@@ -258,6 +276,28 @@ def girl_double():
 
     phrase_to = phrase()
     bot.send_message(group2, phrase_to)
+    bot.send_message(group_experts, phrase_to)
+
+    
+    
+def girl2():
+    #bot.send_message(group2, "girl2 starts")
+    len_ = len(link_girls)
+
+    while len_ == 0:
+        time.sleep(30)
+
+    # bot.send_message(group2, f'It`s the length of array girls in Girl() {len_}')
+
+    pict = link_girls[random.randrange(0, len_)]
+
+    try:
+        bot.send_photo(group_experts, photo=pict)
+    except Exception as e:
+        #bot.send_message(group2, e)
+        girl2()
+
+    phrase_to = phrase()
     bot.send_message(group_experts, phrase_to)
 
 
