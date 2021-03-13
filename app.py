@@ -85,9 +85,9 @@ def send_girl(message):
     if len_girls == 0:
         get_girl_links()
 
-
     girl2()
-        
+
+
 @bot.message_handler(commands=['stop'])
 def stop_girl(message):
 
@@ -102,6 +102,7 @@ def repeat_all_messages(message):
     bot_message_random = random.randrange(0, len(for_message))
     bot_message = for_message[bot_message_random].capitalize()
     bot.send_message(message.chat.id, bot_message)
+
 
 def start_girl(message):
 
@@ -177,7 +178,7 @@ def get_girl_links():
         else:
             pass
 
-    len_ = len(link_girls)
+    # len_ = len(link_girls)
 
    # bot.send_message(group2, f'===================== {len_}')
 
@@ -233,6 +234,7 @@ def phrase_once():
     willing_phrase = f'{guys[guys_random].capitalize()} {greeting[greeting_random]}! {phrases[phrases_random].capitalize()} {emoji[emoji_random]}'
 
     return willing_phrase
+
 
 def girl():
     #bot.send_message(group2, "girl starts")
