@@ -85,7 +85,19 @@ def send_girl(message):
     if len_girls == 0:
         get_girl_links()
 
-    girl2()
+    girl_to_group_expert()
+
+
+@bot.message_handler(commands=['send3'])
+def send_girl(message):
+    bot.send_message(message.from_user.id, "Send3 Bot works")
+
+    len_girls = len(link_girls)
+
+    if len_girls == 0:
+        get_girl_links()
+
+    girl_once_to_group2()
 
 
 
@@ -284,7 +296,7 @@ def girl_double():
 
     
     
-def girl2():
+def girl_to_group_expert():
     #bot.send_message(group2, "girl2 starts")
     len_ = len(link_girls)
 
@@ -299,7 +311,7 @@ def girl2():
         bot.send_photo(group_experts, photo=pict)
     except Exception as e:
         #bot.send_message(group2, e)
-        girl2()
+        girl_to_group_expert()
 
     phrase_to = phrase()
     bot.send_message(group_experts, phrase_to)
@@ -320,6 +332,23 @@ def girl_once(message):
 
     bot.send_photo(message.chat.id, photo=pict)
     bot.send_message(message.chat.id, phrase_to)
+
+
+def girl_once_to_group2(message):
+
+    len_ = len(link_girls)
+
+    while len_ == 0:
+        time.sleep(30)
+
+    pict = link_girls[random.randrange(0, len_)]
+    phrase_to = phrase_once()
+
+    # bot.send_message(message.chat.id, 'here')
+    # bot.send_message(message.chat.id, message.chat.id)
+
+    bot.send_photo(group2, photo=pict)
+    bot.send_message(group2, phrase_to)
 
 
 # def send_ping_phrase():
