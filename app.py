@@ -334,7 +334,7 @@ def girl_once(message):
     bot.send_message(message.chat.id, phrase_to)
 
 
-def girl_once_to_group2(message):
+def girl_once_to_group2():
     bot.send_message(group2, 'test girl_once_to_group2')
     len_ = len(link_girls)
 
