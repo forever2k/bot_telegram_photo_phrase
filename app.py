@@ -335,7 +335,7 @@ def girl_once(message):
 
 
 def girl_once_to_group2(message):
-
+    bot.send_message(group2, 'test girl_once_to_group2')
     len_ = len(link_girls)
 
     while len_ == 0:
