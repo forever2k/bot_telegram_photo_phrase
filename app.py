@@ -19,6 +19,9 @@ import threading
 # -506817497 test group 3
 # -1001464385948 group_experts
 
+
+
+
 bot = telebot.TeleBot(TOKEN)
 
 server = Flask(__name__)
