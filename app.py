@@ -64,6 +64,7 @@ def send_girl(message):
     # bot.send_message(message.from_user.id, "First girl completed")
     # schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
 
+    schedule.every(5).minutes.do(run_threaded, ping)
     schedule.every(60).minutes.do(run_threaded, girl)
     # schedule.every(70).seconds.do(run_threaded, additional_check)
     schedule.every(180).minutes.do(run_threaded, girl_double)
@@ -118,14 +119,6 @@ def repeat_all_messages(message):
     bot.send_message(message.chat.id, bot_message)
 
 
-def start_girl(message):
-
-    global launch
-    launch = True
-    bot.send_message(message.from_user.id, "Start is activated")
-
-    get_girl_links()
-
 
 def x_keyboard():
     keyboard = types.InlineKeyboardMarkup()
@@ -156,6 +149,18 @@ def callback_worker(call):
 #
 #     bot.send_message(message.from_user.id, "Please wait, I am looking for sisechki")
 #     girl_once(message)
+
+def ping():
+    bot.send_message(group2, 'ping')
+
+
+def start_girl(message):
+
+    global launch
+    launch = True
+    bot.send_message(message.from_user.id, "Start is activated")
+
+    get_girl_links()
 
 
 def get_girl_links():
