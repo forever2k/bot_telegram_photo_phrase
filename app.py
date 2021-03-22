@@ -61,20 +61,7 @@ def send_girl(message):
 
     start_girl(message)
 
-    # bot.send_message(message.from_user.id, "First girl completed")
-    # schedule.every(50).seconds.do(run_threaded, send_ping_phrase)
-
-    schedule.every(5).minutes.do(run_threaded, ping)
-    schedule.every(60).minutes.do(run_threaded, girl)
-    # schedule.every(70).seconds.do(run_threaded, additional_check)
-    schedule.every(180).minutes.do(run_threaded, girl_double)
-    schedule.every(120).minutes.do(run_threaded, get_girl_links)
-
-    # schedule.every(6).hours.do(girl)
-
-    while launch:
-        schedule.run_pending()
-        time.sleep(1)
+    bot_schedule()
 
 
 @bot.message_handler(commands=['send2'])
@@ -160,7 +147,10 @@ def start_girl(message):
     launch = True
     bot.send_message(message.from_user.id, "Start is activated")
 
-    get_girl_links()
+    len_girls = len(link_girls)
+
+    if len_girls == 0:
+        get_girl_links()
 
 
 def get_girl_links():
@@ -359,6 +349,20 @@ def girl_once_to_group2():
 # def send_ping_phrase():
 #  len_ = len(link_girls)
 #  bot.send_message(group2, f'ping + {len_}')
+
+
+def bot_schedule():
+    schedule.every(5).minutes.do(run_threaded, ping)
+    schedule.every(60).minutes.do(run_threaded, girl)
+    # schedule.every(70).seconds.do(run_threaded, additional_check)
+    schedule.every(180).minutes.do(run_threaded, girl_double)
+    schedule.every(120).minutes.do(run_threaded, get_girl_links)
+
+    # schedule.every(6).hours.do(girl)
+
+    while launch:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 def run_threaded(job_func):
