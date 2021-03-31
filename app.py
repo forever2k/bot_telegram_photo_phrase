@@ -372,7 +372,9 @@ def run_threaded(job_func):
 
 @server.route('/' + TOKEN, methods=['POST'])
 def getMessage():
-    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
     return "it works", 200
 
 
@@ -383,6 +385,5 @@ def webhook():
     return "it worksssssssss", 200
 
 
-if __name__ == '__main__':
-    server.debug = True
+if __name__ == "__main__":
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
